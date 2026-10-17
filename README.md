@@ -26,5 +26,5 @@ tested. Change the words there first, then here.
 
 ## Going live
 
-The page carries a red "Draft" strip and placeholders. Before pushing it live, remove the strip (the
-`<div class="draft">` line and its CSS), fill in the contact route, and add the showreel photo or remove its slot.
+Ready to go live. When there's a photo of the sensor display, it can replace the node list in the "Screens and touch"
+section.

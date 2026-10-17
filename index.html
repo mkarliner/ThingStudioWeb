@@ -63,13 +63,6 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance;
 p { margin: 0; }
 code, .mono { font-family: var(--mono); font-size: 0.9em; }
 
-/* Draft strip */
-.draft {
-  margin-inline: -1rem; padding: 0.45rem 1rem; text-align: center;
-  font: 500 0.78rem/1.4 var(--mono); letter-spacing: 0.04em;
-  color: var(--draft); border-bottom: 1px dashed var(--draft);
-}
-
 /* Header */
 header.top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
   padding-block: 1.1rem; border-bottom: 1px solid var(--line); }
@@ -125,7 +118,6 @@ nav.links a:hover { color: var(--fg); }
 .testers { margin-top: 0.75rem; padding: 1.25rem 1.4rem; background: var(--surface); border: 1px solid var(--line);
   border-left: 4px solid var(--n-hardware); border-radius: 8px; display: grid; gap: 0.7rem; }
 .testers h3 { font-size: 1.25rem; }
-.placeholder { font-family: var(--mono); font-size: 0.9em; color: var(--draft); }
 
 /* Feature rows */
 .features { border-top: 1px solid var(--line); }
@@ -159,9 +151,6 @@ ol.ladder span { color: var(--muted); font-size: 0.95rem; }
 .claim { margin-top: 1rem; font: 0.82rem/1.55 var(--mono); color: var(--muted); border-top: 1px dashed var(--line);
   padding-top: 0.9rem; }
 
-.photo-slot { aspect-ratio: 3 / 2; max-width: 100%; border: 1.5px dashed var(--line); border-radius: 10px;
-  display: grid; place-items: center; text-align: center; padding: 1.5rem; color: var(--muted);
-  font: 0.85rem/1.5 var(--mono); background: var(--canvas); }
 
 .tbl { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
@@ -188,8 +177,6 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 </style>
 </head>
 <body>
-<div class="draft">DRAFT FOR MIKE · NOT PUBLIC · placeholders in this colour</div>
-
 <div class="wrap">
   <header class="top">
     <a class="wordmark" href="#">THINGSTUDIO</a>
@@ -300,7 +287,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           minutes, including installing all the necessary software. All you need is an ESP32 or Raspberry Pi Pico
           board to give it a spin. All <em>polite</em> feedback will be very gratefully received.</p>
         <p>Start at <a href="https://docs.thingstudio.net/getting-started/">Getting started</a>, and tell me how it
-          went: <span class="placeholder">&lt;contact route&gt;</span></p>
+          went: <a href="mailto:mike@minus1.com">mike@minus1.com</a>.</p>
       </div>
     </div>
   </section>
@@ -413,7 +400,22 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           display</a>: temperature, humidity and pressure with their history, and a clock, publishing the readings
           over MQTT.</p>
       </div>
-      <div class="photo-slot">Photo: the sensor display running on the<br>Freenove ESP32-S3 4.0" board</div>
+      <div class="panel">
+        <div class="events">
+          <span class="chip" style="--c: var(--n-gui)">gui screen</span>
+          <span class="chip" style="--c: var(--n-gui)">gui readout</span>
+          <span class="chip" style="--c: var(--n-gui)">gui label</span>
+          <span class="chip" style="--c: var(--n-gui)">gui bar</span>
+          <span class="chip" style="--c: var(--n-gui)">gui trend</span>
+          <span class="chip" style="--c: var(--n-gui)">gui light</span>
+          <span class="chip" style="--c: var(--n-gui)">gui button</span>
+          <span class="chip" style="--c: var(--n-gui)">gui modal</span>
+          <span class="chip" style="--c: var(--n-hardware)">display spi</span>
+          <span class="chip" style="--c: var(--n-hardware)">touch panel</span>
+          <span class="chip" style="--c: var(--n-general)">journal</span>
+        </div>
+        <p class="claim">Tested on the Freenove ESP32-S3 4.0" display with touch, and the CYD's display.</p>
+      </div>
     </div>
 
     <div class="row">
