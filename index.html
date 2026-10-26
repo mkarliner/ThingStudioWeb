@@ -173,6 +173,7 @@ td.chip-cell { font-family: var(--mono); font-size: 0.85rem; color: var(--muted)
 footer { padding-block: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 2rem;
   font-size: 0.95rem; color: var(--muted); }
 footer h3 { font: 500 0.75rem/1.3 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem; color: var(--fg); }
+.stats { padding-block: 0 2.5rem; font-size: 0.85rem; color: var(--muted); max-width: 46rem; }
 footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
 
 @media (max-width: 52rem) {
@@ -428,7 +429,11 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       </ul>
     </div>
   </footer>
+  <p class="stats">Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, run on my own
+    server: pages viewed, the site you came from, browser, screen size and country. No cookies, and nothing that
+    identifies you.</p>
 </div>
 
+<script data-goatcounter="https://stats.minus1.com/count" async src="https://stats.minus1.com/count.js"></script>
 </body>
 </html>
