@@ -31,5 +31,4 @@ tested. Change the words there first, then here.
 
 ## Going live
 
-Live. When there's a photo of the sensor display, it can replace the node list in the "Touch screens without a
-frame buffer" section.
+Live. The GUI nodes aren't mentioned on purpose: they're provisional (Mike, 2026-10-26).
