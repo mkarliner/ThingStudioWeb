@@ -3,19 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thingstudio</title>
-<meta name="description" content="Program a microcontroller by drawing wires between nodes in your browser. Thingstudio compiles the flow to MicroPython; the board runs it on its own.">
+<title>Thingstudio: flow programming for microcontrollers</title>
+<meta name="description" content="Node-RED-style flow programming for ESP32 and Raspberry Pi Pico boards. Thingstudio compiles your flow to MicroPython and the board runs it on its own. Alpha, open source, Apache 2.0.">
+<link rel="canonical" href="https://www.thingstudio.net/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.thingstudio.net/">
+<meta property="og:site_name" content="Thingstudio">
+<meta property="og:title" content="Thingstudio: flow programming for microcontrollers">
+<meta property="og:description" content="Node-RED-style flows for ESP32 and Pico boards, compiled to MicroPython and run on the board itself. Alpha, open source, testers wanted.">
+<meta property="og:image" content="https://www.thingstudio.net/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Thingstudio editor: a palette of nodes, a flow of sensor nodes wired to MQTT publish nodes, and a node's pin settings.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one 72rem column; the hero is a live-looking flow on a canvas grid, then
-   alternating text/visual rows in the XOD manner, each row one idea. */
+/* Layout: one 72rem column; a hero with a real editor shot, a short letter, then
+   alternating text/visual rows, each row one idea. */
 :root {
   --bg: #f4f5f3;
   --surface: #ffffff;
-  --canvas: #e9ebe7;
-  --grid: #d7dbd4;
   --fg: #1b1e22;
   --muted: #5b6168;
   --line: #d3d6d0;
@@ -27,24 +37,24 @@
   --n-hardware: #c0702a;
   --n-gui: #8a5bb0;
   --n-fn: #c79a2a;
-  --draft: #b8492f;
+  --alpha: #b8492f;
   --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #14161a; --surface: #1c1f24; --canvas: #181b20; --grid: #252a31; --fg: #e6e8ea; --muted: #9aa1a9;
+    --bg: #14161a; --surface: #1c1f24; --fg: #e6e8ea; --muted: #9aa1a9;
     --line: #2d323a; --wire: #5a95d6; --accent: #6aa5e6; --accent-fg: #0f1215;
     --n-general: #6fb46c; --n-network: #4fb8b2; --n-hardware: #e0914c; --n-gui: #ad86d4; --n-fn: #e0b648;
-    --draft: #e07a5f; color-scheme: dark;
+    --alpha: #e07a5f; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #14161a; --surface: #1c1f24; --canvas: #181b20; --grid: #252a31; --fg: #e6e8ea; --muted: #9aa1a9;
+  --bg: #14161a; --surface: #1c1f24; --fg: #e6e8ea; --muted: #9aa1a9;
   --line: #2d323a; --wire: #5a95d6; --accent: #6aa5e6; --accent-fg: #0f1215;
   --n-general: #6fb46c; --n-network: #4fb8b2; --n-hardware: #e0914c; --n-gui: #ad86d4; --n-fn: #e0b648;
-  --draft: #e07a5f; color-scheme: dark;
+  --alpha: #e07a5f; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -72,8 +82,11 @@ nav.links a { color: var(--muted); text-decoration: none; }
 nav.links a:hover { color: var(--fg); }
 
 /* Hero */
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 3rem; align-items: center;
-  padding-block: 4rem 3rem; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 3rem; align-items: center;
+  padding-block: 4rem 3.5rem; }
+.badge { display: inline-block; font: 500 0.75rem/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--alpha); border: 1.5px solid var(--alpha); border-radius: 4px; padding: 0.35rem 0.5rem;
+  margin-bottom: 1.1rem; text-decoration: none; }
 .hero h1 { font-size: clamp(2.3rem, 5vw, 3.6rem); font-weight: 700; letter-spacing: -0.02em; }
 .hero .lede { margin-top: 1.25rem; font-size: 1.15rem; color: var(--muted); max-width: 34rem; }
 .ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.75rem; }
@@ -83,27 +96,11 @@ nav.links a:hover { color: var(--fg); }
 .btn.secondary { color: var(--accent); }
 .facts { margin-top: 1.5rem; font: 0.85rem/1.5 var(--mono); color: var(--muted); }
 
-/* The flow canvas */
-.canvas { position: relative; background-color: var(--canvas); border: 1px solid var(--line); border-radius: 10px;
-  background-image: radial-gradient(var(--grid) 1px, transparent 1px); background-size: 18px 18px;
-  padding: 1.5rem 1rem; overflow: hidden; }
-.canvas svg { display: block; width: 100%; height: auto; }
-.canvas .cap { margin-top: 0.75rem; font: 0.8rem/1.5 var(--mono); color: var(--muted); text-align: center; }
-.node-box { fill: var(--surface); stroke-width: 1.5; }
-.node-label { font: 600 13px var(--body); fill: var(--fg); }
-.node-code { font: 11px var(--mono); fill: var(--muted); }
-.port { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
-.wire { stroke: var(--wire); stroke-width: 3; fill: none; stroke-linecap: round; }
-.pulse { stroke: var(--surface); stroke-width: 3; fill: none; stroke-linecap: round;
-  stroke-dasharray: 6 60; animation: flow 0.5s linear infinite; }
-@keyframes flow { to { stroke-dashoffset: -66; } }
-.led { fill: var(--n-hardware); animation: blink 1s steps(1) infinite; }
-@keyframes blink { 50% { fill: var(--line); } }
-@media (prefers-reduced-motion: reduce) { .pulse, .led { animation: none; } }
-
 /* Screenshot */
 .shot { margin: 0; }
+.shot a { display: block; }
 .shot img { display: block; width: 100%; border-radius: 10px; border: 1px solid var(--line); }
+.shot a:hover img { border-color: var(--accent); }
 .shot figcaption { margin-top: 0.6rem; font-size: 0.9rem; color: var(--muted); }
 
 /* Welcome letter */
@@ -112,12 +109,11 @@ nav.links a:hover { color: var(--fg); }
 .eyebrow { font: 500 0.78rem/1.4 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .letter h2 { font-size: 2rem; margin-top: 0.5rem; }
 .letter .body { max-width: 40rem; display: grid; gap: 1.05rem; }
-.letter ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.2rem; }
 .sign { font-family: var(--display); font-weight: 500; font-size: 1.15rem; }
 
-.testers { margin-top: 0.75rem; padding: 1.25rem 1.4rem; background: var(--surface); border: 1px solid var(--line);
-  border-left: 4px solid var(--n-hardware); border-radius: 8px; display: grid; gap: 0.7rem; }
-.testers h3 { font-size: 1.25rem; }
+.callout { margin-top: 0.75rem; padding: 1.25rem 1.4rem; background: var(--surface); border: 1px solid var(--line);
+  border-left: 4px solid var(--c, var(--n-hardware)); border-radius: 8px; display: grid; gap: 0.7rem; }
+.callout h3 { font-size: 1.25rem; }
 
 /* Feature rows */
 .features { border-top: 1px solid var(--line); }
@@ -133,9 +129,15 @@ nav.links a:hover { color: var(--fg); }
 .tag::before { content: ""; width: 0.6rem; height: 0.6rem; border-radius: 2px; background: var(--c, var(--accent)); }
 
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.25rem; min-width: 0; }
-pre { margin: 0; overflow-x: auto; font: 0.85rem/1.6 var(--mono); color: var(--fg); }
-.file { font: 500 0.75rem/1 var(--mono); color: var(--muted); margin-bottom: 0.6rem; }
-.file + pre + .file { margin-top: 1.1rem; }
+
+/* Two places: computer and board */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 0.75rem; align-items: stretch; }
+.place { border: 1.5px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; display: grid; gap: 0.35rem;
+  align-content: start; }
+.place b { font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
+.place span { color: var(--muted); font-size: 0.92rem; }
+.arrow { align-self: center; font: 500 0.78rem/1.3 var(--mono); color: var(--wire); text-align: center; }
+.arrow::before { content: "→"; display: block; font-size: 1.4rem; }
 
 ol.ladder { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
 ol.ladder li { counter-increment: step; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 0.75rem;
@@ -150,7 +152,6 @@ ol.ladder span { color: var(--muted); font-size: 0.95rem; }
   background: var(--surface); }
 .claim { margin-top: 1rem; font: 0.82rem/1.55 var(--mono); color: var(--muted); border-top: 1px dashed var(--line);
   padding-top: 0.9rem; }
-
 
 .tbl { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
@@ -174,6 +175,10 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
   .row:nth-child(even) .text { order: 0; }
   .hero { padding-block: 2.5rem 2rem; }
 }
+@media (max-width: 30rem) {
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .arrow::before { content: "↓"; }
+}
 </style>
 </head>
 <body>
@@ -181,113 +186,71 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
   <header class="top">
     <a class="wordmark" href="#">THINGSTUDIO</a>
     <nav class="links" aria-label="Main">
+      <a href="https://docs.thingstudio.net/getting-started/">Get started</a>
       <a href="https://docs.thingstudio.net/">User guide</a>
       <a href="https://docs.thingstudio.net/supported-hardware/">Hardware</a>
       <a href="https://github.com/mkarliner/ThingStudio">GitHub</a>
-      <a href="https://github.com/mkarliner/ThingStudio/releases/latest">Download</a>
     </nav>
   </header>
 
   <section class="hero">
     <div>
-      <h1>Draw a flow. It runs on the board.</h1>
-      <p class="lede">Program a microcontroller by drawing wires between nodes in your browser. Thingstudio compiles
-        the flow to MicroPython and sends it to your board, where it runs on its own: no server, no cloud, no editor
-        connected.</p>
+      <a class="badge" href="#status">Alpha · testers wanted</a>
+      <h1>Flow programming for microcontrollers</h1>
+      <p class="lede">Wire nodes together the Node-RED way, in an editor on your computer. Thingstudio compiles the
+        flow to MicroPython and sends it to an ESP32 or Raspberry Pi Pico, where it runs on its own.</p>
       <div class="ctas">
         <a class="btn primary" href="https://docs.thingstudio.net/getting-started/">Get started</a>
-        <a class="btn secondary" href="https://github.com/mkarliner/ThingStudio/releases/latest">Download</a>
+        <a class="btn secondary" href="https://github.com/mkarliner/ThingStudio">Source on GitHub</a>
       </div>
       <p class="facts">Free and open source · Apache 2.0 · macOS, Linux, Windows</p>
     </div>
 
-    <div class="canvas" role="img" aria-label="A three-node flow: a timer every 500 ms, a function that toggles the value, and a gpio out node driving an LED.">
-      <svg viewBox="0 0 560 170" aria-hidden="true">
-        <!-- wires -->
-        <path class="wire" d="M150 70 C 175 70, 175 70, 200 70"/>
-        <path class="wire" d="M360 70 C 385 70, 385 70, 410 70"/>
-        <path class="pulse" d="M150 70 L 200 70"/>
-        <path class="pulse" d="M360 70 L 410 70"/>
-        <!-- timer -->
-        <rect class="node-box" x="10" y="48" width="140" height="44" rx="6" style="stroke: var(--n-general)"/>
-        <rect x="18" y="58" width="24" height="24" rx="4" style="fill: var(--n-general); opacity: .18"/>
-        <circle cx="30" cy="70" r="6" fill="none" style="stroke: var(--n-general)" stroke-width="1.6"/>
-        <path d="M30 66 V70 H33" fill="none" style="stroke: var(--n-general)" stroke-width="1.6"/>
-        <text class="node-label" x="52" y="68">timer</text>
-        <text class="node-code" x="52" y="83">every 500 ms</text>
-        <circle class="port" cx="150" cy="70" r="5"/>
-        <!-- function -->
-        <rect class="node-box" x="200" y="48" width="160" height="44" rx="6" style="stroke: var(--n-fn)"/>
-        <rect x="208" y="58" width="24" height="24" rx="4" style="fill: var(--n-fn); opacity: .18"/>
-        <text x="216" y="76" style="font: italic 700 14px var(--body); fill: var(--n-fn)">ƒ</text>
-        <text class="node-label" x="242" y="68">function</text>
-        <text class="node-code" x="242" y="83">count → 1, 0, 1, 0</text>
-        <circle class="port" cx="200" cy="70" r="5"/>
-        <circle class="port" cx="360" cy="70" r="5"/>
-        <!-- gpio out -->
-        <rect class="node-box" x="410" y="48" width="140" height="44" rx="6" style="stroke: var(--n-hardware)"/>
-        <rect x="418" y="58" width="24" height="24" rx="4" style="fill: var(--n-hardware); opacity: .18"/>
-        <circle class="led" cx="430" cy="70" r="6"/>
-        <text class="node-label" x="452" y="68">gpio out</text>
-        <text class="node-code" x="452" y="83">LED pin</text>
-        <circle class="port" cx="410" cy="70" r="5"/>
-        <!-- code under function -->
-        <rect x="200" y="104" width="160" height="56" rx="6" style="fill: var(--surface); stroke: var(--line)"/>
-        <text class="node-code" x="210" y="124" style="fill: var(--fg)">msg['payload'] =</text>
-        <text class="node-code" x="210" y="138" style="fill: var(--fg)">  msg['payload'] % 2</text>
-        <text class="node-code" x="210" y="152" style="fill: var(--fg)">return msg</text>
-        <path d="M280 92 V104" style="stroke: var(--line)" stroke-dasharray="3 3"/>
-      </svg>
-      <p class="cap">blink · the first flow in Getting started</p>
-    </div>
+    <figure class="shot">
+      <a href="editor-tour.png" title="Open the labelled tour of the editor, full size">
+        <img src="editor-flow.png" width="1125" height="583" alt="The Thingstudio editor: the node palette on the left, two sensor nodes wired to MQTT publish nodes in the middle, and the selected node's I2C bus and pin settings on the right.">
+      </a>
+      <figcaption>A sensor node's pins are settings, checked against the board. Click for a labelled tour of the editor.</figcaption>
+    </figure>
   </section>
-
-  <figure class="shot">
-    <img src="editor.png" width="1600" height="900" alt="The Thingstudio editor: the node palette on the left, a timer, function and gpio out flow in the middle, the function node's code and the board's console on the right.">
-    <figcaption>The editor. Nodes on the left, your flow in the middle, settings and the board's console on the right.</figcaption>
-  </figure>
 
   <section class="letter" id="welcome">
     <div>
       <p class="eyebrow">Welcome</p>
-      <h2>Hi, I'm Mike</h2>
+      <h2>Why I made it</h2>
     </div>
     <div class="body">
-      <p>Hi, I'm Mike Karliner. I've made a thing, or to be more precise, Thingstudio.</p>
-      <p>I've been programming since dinosaurs roamed the earth, or at any rate the mid-1970s, and my first
-        professional job was programming an Intel 8080 in assembler. Since then, I've always had a soft spot in my
-        heart for tiny machines and real-time programming.</p>
-      <p>Today, I've been known to say that we are in a golden age for those who like to tinker with hardware and
-        software. I must have at least a hundred microcontrollers of various kinds around the room where I'm writing
-        this, and I've bought every Raspberry Pi on the day of release.</p>
-      <p>There is also a wealth of great open-source projects to help people with microcontrollers and IoT. Some of
-        my favourites are:</p>
-      <ul>
-        <li>Node-RED</li>
-        <li>MicroPython (I funded the original MicroPython Kickstarter)</li>
-        <li>Home Assistant</li>
-        <li>Tasmota</li>
-      </ul>
-      <p>So I've finally decided to try to give back a little to the open-source community, by adapting some of the
-        best concepts from these projects and making my own offering.</p>
-      <p>Thingstudio is an attempt to bring the great programming experience of Node-RED to the world of
-        microcontrollers. It uses as many of Node-RED's concepts and as much of its style as possible, while running
-        on a microcontroller: it compiles Node-RED-style flows to MicroPython and uploads them to the board, where
-        they run persistently without any need for the Thingstudio editor to be connected.</p>
-      <p>This is my first attempt to make a piece of non-trivial software with AI assistance. I've done my best to
-        supervise the development closely, but if you have a serious objection to AI coding, then this is probably
-        not for you.</p>
-      <p>Thingstudio is, and will always be, completely open source, with a permissive licence.</p>
+      <p>Hi, I'm Mike Karliner.</p>
+      <p>I've been programming since dinosaurs roamed the earth, or at any rate the mid-1970s. My first professional
+        job was an Intel 8080, in assembler, and I've had a soft spot for tiny machines and real-time code ever
+        since.</p>
+      <p>This is a golden age for people who tinker. There are at least a hundred microcontrollers in the room where
+        I'm writing this, and I've bought every Raspberry Pi on the day it came out. The open-source tools are just
+        as good: Node-RED, MicroPython (I backed the original Kickstarter), Home Assistant and Tasmota are a few of my
+        favourites.</p>
+      <p>Thingstudio is my attempt to give something back. The idea is to bring flow programming to
+        microcontrollers, using things people already like: Node-RED's way of wiring a program together, and
+        MicroPython underneath it.</p>
+      <p>I built it with a lot of AI assistance, and I've supervised it closely. If you object to AI-written code on
+        principle, it probably isn't for you, and fair enough.</p>
+      <p>It is, and will stay, open source under a permissive licence.</p>
       <p class="sign">Mike</p>
 
-      <div class="testers" id="testers">
+      <div class="callout" id="status" style="--c: var(--alpha)">
+        <h3>Status: alpha</h3>
+        <p>It works on my bench, with my boards and my habits. It stays alpha until people other than me have set it
+          up and used it from the docs alone. Expect rough edges, and gaps in the docs I can't see.</p>
+      </div>
+
+      <div class="callout" id="testers">
         <h3>Testers wanted</h3>
-        <p>Right now, I'm looking for some brave souls to try the onboarding experience. The idea is that a person
-          with some microcontroller experience can go from a blank board to a blinking LED, including installing
-          all the necessary software. Allow up to an hour, though I'm hoping it's a lot less. All you need is an
-          ESP32 or Raspberry Pi Pico board to give it a spin. All <em>polite</em> feedback will be very gratefully received.</p>
+        <p>I'm looking for some brave souls to try the onboarding. The idea is that someone with some
+          microcontroller or Node-RED experience can go from a blank board to a blinking LED, installing everything
+          on the way, MicroPython included. I'm aiming for about 15 minutes; allow up to an hour. All you need is an
+          ESP32 or a Raspberry Pi Pico.</p>
         <p>Start at <a href="https://docs.thingstudio.net/getting-started/">Getting started</a>, and tell me how it
-          went: <a href="mailto:mike@minus1.com">mike@minus1.com</a>.</p>
+          went: which board and computer, how long each step took, and every place you stopped, guessed or swore.
+          All <em>polite</em> feedback very gratefully received: <a href="mailto:mike@minus1.com">mike@minus1.com</a>.</p>
       </div>
     </div>
   </section>
@@ -295,10 +258,65 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
   <section class="features" aria-label="What Thingstudio does">
     <div class="row">
       <div class="text">
+        <span class="tag" style="--c: var(--wire)">Architecture</span>
+        <h2>The editor stays on your computer. The flow lives on the board.</h2>
+        <p>In Node-RED, the editor and the runtime are one program on one computer. Thingstudio splits them. You
+          build the flow on your computer; Thingstudio compiles it to MicroPython and sends it to the board over USB or
+          WiFi.</p>
+        <p>The flow is saved on the board. <strong>Close the editor, unplug the cable, and it keeps running.</strong>
+          It starts again after a reset or power cycle. A change is a new deploy, not a firmware build, and takes
+          seconds.</p>
+      </div>
+      <div class="panel">
+        <div class="split">
+          <div class="place"><b>Your computer</b><span>The editor, in your browser. Compiles the flow to MicroPython,
+            then to <code>.mpy</code> bytecode.</span></div>
+          <div class="arrow">USB or WiFi</div>
+          <div class="place"><b>The board</b><span>MicroPython, the flow, and only the libraries it uses. Nothing
+            else.</span></div>
+        </div>
+        <p class="claim">A blank board? <b>Tools → Install firmware…</b> writes MicroPython onto ESP32 and Pico boards
+          from the editor.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="text">
+        <span class="tag" style="--c: var(--n-hardware)">Hardware</span>
+        <h2>It knows your board</h2>
+        <p>Each board has a definition: its pins, its LED, which pins are reserved and why, and which pins each SPI and
+          I2C bus can use. <b>Pins…</b> in the editor lists them, and for boards like the Pico lays out the header the
+          way the board looks.</p>
+        <p>Every pin in a flow is checked against the board it's for. Each pin and bus is set up once and shared.
+          <strong>If a pin doesn't exist, would crash the board, or two nodes would set it up differently, the compile
+          stops and says why</strong>, before anything reaches the board.</p>
+        <p>Flows respond to events, and the board waits on many at once: interrupts, debounced buttons, a rotary
+          encoder, an analog input that only reports when a reading crosses its bounds.</p>
+      </div>
+      <div class="panel">
+        <div class="events">
+          <span class="chip" style="--c: var(--n-hardware)">interrupt</span>
+          <span class="chip" style="--c: var(--n-hardware)">ebutton</span>
+          <span class="chip" style="--c: var(--n-hardware)">eswitch</span>
+          <span class="chip" style="--c: var(--n-hardware)">encoder</span>
+          <span class="chip" style="--c: var(--n-hardware)">adc</span>
+          <span class="chip" style="--c: var(--n-hardware)">gpio out</span>
+          <span class="chip" style="--c: var(--n-hardware)">pwm out</span>
+          <span class="chip" style="--c: var(--n-hardware)">bme280</span>
+          <span class="chip" style="--c: var(--n-hardware)">neopixel</span>
+          <span class="chip" style="--c: var(--n-general)">timer</span>
+        </div>
+        <p class="claim">The button, switch and encoder drivers are Peter Hinch's
+          <a href="https://github.com/peterhinch/micropython-async">micropython-async</a> primitives.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="text">
         <span class="tag" style="--c: var(--n-general)">Flows</span>
-        <h2>Wire nodes in your browser</h2>
-        <p>Pick nodes from the palette and draw wires between them. A timer, a function and a pin make a blinking
-          LED. Messages flow along the wires, Node-RED style, with the value in <code>msg['payload']</code>.</p>
+        <h2>Node-RED's model, at microcontroller scale</h2>
+        <p>Pick nodes from the palette and draw wires between them. Messages travel along the wires, with the value
+          in <code>msg['payload']</code>, as they do in Node-RED. A timer, a function and a pin make a blinking LED.</p>
         <p>Built-in nodes cover pins, buttons, sensors, MQTT, HTTP, UDP, displays and touch panels.</p>
       </div>
       <div class="panel">
@@ -306,23 +324,18 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           <span class="chip" style="--c: var(--n-general)">inject</span>
           <span class="chip" style="--c: var(--n-general)">timer</span>
           <span class="chip" style="--c: var(--n-fn)">function</span>
+          <span class="chip" style="--c: var(--n-general)">change</span>
           <span class="chip" style="--c: var(--n-general)">filter</span>
+          <span class="chip" style="--c: var(--n-general)">delay</span>
           <span class="chip" style="--c: var(--n-general)">journal</span>
-          <span class="chip" style="--c: var(--n-general)">clock</span>
+          <span class="chip" style="--c: var(--n-network)">ntp</span>
           <span class="chip" style="--c: var(--n-network)">mqtt publish</span>
           <span class="chip" style="--c: var(--n-network)">mqtt subscribe</span>
           <span class="chip" style="--c: var(--n-network)">http request</span>
           <span class="chip" style="--c: var(--n-network)">udp send</span>
           <span class="chip" style="--c: var(--n-network)">wifi status</span>
-          <span class="chip" style="--c: var(--n-hardware)">gpio out</span>
-          <span class="chip" style="--c: var(--n-hardware)">pwm out</span>
-          <span class="chip" style="--c: var(--n-hardware)">ebutton</span>
-          <span class="chip" style="--c: var(--n-hardware)">encoder</span>
-          <span class="chip" style="--c: var(--n-hardware)">adc</span>
-          <span class="chip" style="--c: var(--n-hardware)">bme280</span>
-          <span class="chip" style="--c: var(--n-hardware)">neopixel</span>
           <span class="chip" style="--c: var(--n-gui)">gui screen</span>
-          <span class="chip" style="--c: var(--n-gui)">gui trend</span>
+          <span class="chip" style="--c: var(--n-gui)">histogram</span>
           <span class="chip" style="--c: var(--n-gui)">gui button</span>
         </div>
         <p class="claim">Every node has a page in the <a href="https://docs.thingstudio.net/nodes-catalog/">node
@@ -332,26 +345,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
     <div class="row">
       <div class="text">
-        <span class="tag" style="--c: var(--wire)">Deploy</span>
-        <h2>Deploy in seconds, then unplug it</h2>
-        <p>The editor compiles the flow to MicroPython and sends it over USB or WiFi. Trying a change takes seconds.
-          There's no firmware to flash.</p>
-        <p>The flow is saved on the board. <strong>Close the editor, unplug the cable, and it keeps running.</strong>
-          It starts again after a reset or power cycle.</p>
-      </div>
-      <div class="panel">
-        <ul class="ticks">
-          <li><b>Compiled in your browser</b><span>To MicroPython, then to <code>.mpy</code> bytecode.</span></li>
-          <li><b>Sent over USB or WiFi</b><span>Only the libraries the flow uses go with it.</span></li>
-          <li><b>Runs on its own</b><span>MicroPython files on the board, nothing else.</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="text">
         <span class="tag" style="--c: var(--n-fn)">Python</span>
-        <h2>Python when you need it, in the same tool</h2>
+        <h2>One language, from the first wire to your own nodes</h2>
         <p>When the built-in nodes aren't enough, write a few lines of Python in a function node. Then write your own
           nodes, in the same Python. No new language and no firmware build at any step.</p>
       </div>
@@ -368,34 +363,11 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
     <div class="row">
       <div class="text">
-        <span class="tag" style="--c: var(--n-hardware)">Hardware</span>
-        <h2>Designed for the microcontroller</h2>
-        <p>Flows respond to events, and the board waits on many at once. Interrupts, debounced buttons, a rotary
-          encoder, and an analog input that only reports when a reading crosses its bounds are built in.</p>
-        <p>Each pin and bus is set up once and shared. <strong>If two nodes would set up the same pin differently,
-          the compile stops and names both</strong>, before anything reaches the board.</p>
-      </div>
-      <div class="panel">
-        <div class="events">
-          <span class="chip" style="--c: var(--n-hardware)">interrupt</span>
-          <span class="chip" style="--c: var(--n-hardware)">ebutton</span>
-          <span class="chip" style="--c: var(--n-hardware)">eswitch</span>
-          <span class="chip" style="--c: var(--n-hardware)">encoder</span>
-          <span class="chip" style="--c: var(--n-hardware)">adc</span>
-          <span class="chip" style="--c: var(--n-general)">timer</span>
-          <span class="chip" style="--c: var(--n-network)">mqtt subscribe</span>
-        </div>
-        <p class="claim">The button, switch and encoder drivers are Peter Hinch's
-          <a href="https://github.com/peterhinch/micropython-async">micropython-async</a> primitives.</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="text">
         <span class="tag" style="--c: var(--n-gui)">Screens</span>
-        <h2>Screens and touch</h2>
-        <p>Lay out pages of readouts, labels, bars, lights, buttons and trend charts in the editor. The board draws
-          them in strips of about 5 KB, so a whole frame never has to fit in memory.</p>
+        <h2>Touch screens without a frame buffer</h2>
+        <p>Lay out pages of readouts, labels, bars, lights, histograms and buttons on a grid of cells, so a layout
+          moves between panels. The board draws the screen in strips of about 5 KB, so a whole frame never has to fit
+          in memory.</p>
         <p>The user guide builds <a href="https://docs.thingstudio.net/sensor-display/">a three-page touch
           display</a>: temperature, humidity and pressure with their history, and a clock, publishing the readings
           over MQTT.</p>
@@ -406,26 +378,26 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           <span class="chip" style="--c: var(--n-gui)">gui readout</span>
           <span class="chip" style="--c: var(--n-gui)">gui label</span>
           <span class="chip" style="--c: var(--n-gui)">gui bar</span>
-          <span class="chip" style="--c: var(--n-gui)">gui trend</span>
+          <span class="chip" style="--c: var(--n-gui)">histogram</span>
           <span class="chip" style="--c: var(--n-gui)">gui light</span>
           <span class="chip" style="--c: var(--n-gui)">gui button</span>
           <span class="chip" style="--c: var(--n-gui)">gui modal</span>
           <span class="chip" style="--c: var(--n-hardware)">display spi</span>
           <span class="chip" style="--c: var(--n-hardware)">touch panel</span>
-          <span class="chip" style="--c: var(--n-general)">journal</span>
         </div>
-        <p class="claim">Tested on the Freenove ESP32-S3 4.0" display with touch, and the CYD's display.</p>
+        <p class="claim">Run on the Freenove ESP32-S3 4.0" display with touch, and on the CYD's display.</p>
       </div>
     </div>
 
     <div class="row">
       <div class="text">
         <span class="tag" style="--c: var(--n-network)">Boards</span>
-        <h2>Tested on real boards</h2>
-        <p>"Tested" means flows have been deployed and run on that hardware. Other MicroPython boards may work: pick
-          the processor from the Board menu.</p>
-        <p><a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a> has displays, sensors and
-          nodes too.</p>
+        <h2>The boards it has run on</h2>
+        <p>Each board here has run real flows on my bench, with the hardware nodes it was checked with. That's one
+          person's testing so far, which is part of why this is alpha.</p>
+        <p>Other MicroPython boards may work: pick the processor from the Board menu, or add a definition for your
+          board. <a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a> also lists the
+          displays, touch panels and sensors with built-in support.</p>
       </div>
       <div class="panel tbl">
         <table>
@@ -466,7 +438,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <ul>
         <li><a href="https://docs.thingstudio.net/getting-started/">Getting started</a></li>
         <li><a href="https://docs.thingstudio.net/">User guide</a></li>
-        <li><a href="https://github.com/mkarliner/ThingStudio/releases/latest">Download</a></li>
+        <li><a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a></li>
       </ul>
     </div>
     <div>
@@ -474,12 +446,13 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <ul>
         <li><a href="https://github.com/mkarliner/ThingStudio">GitHub</a></li>
         <li><a href="https://github.com/mkarliner/ThingStudio/issues">Issues</a></li>
-        <li>Apache 2.0 licence</li>
+        <li><a href="https://github.com/mkarliner/ThingStudio/releases">Releases</a></li>
       </ul>
     </div>
     <div>
       <h3>Mike Karliner</h3>
       <ul>
+        <li><a href="mailto:mike@minus1.com">mike@minus1.com</a></li>
         <li><a href="https://blog.karliner.net/">blog.karliner.net</a></li>
         <li>Fediverse: <span class="mono">@mike@gts.minus1.com</span></li>
       </ul>
