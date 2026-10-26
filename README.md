@@ -1,7 +1,7 @@
 # ThingStudioWeb
 
 The landing page for [Thingstudio](https://github.com/mkarliner/ThingStudio), served by GitHub Pages at
-https://www.thingstudio.net/. One static page, no build step: what's in this repo is what's served.
+https://thingstudio.net/. One static page, no build step: what's in this repo is what's served.
 
 - `index.html`: the page. Styles inline; fonts from Google Fonts.
 - `editor-flow.png`: the hero screenshot (v0.8.0, a sensor flow with a custom node's pin settings).
@@ -10,7 +10,7 @@ https://www.thingstudio.net/. One static page, no build step: what's in this rep
 - `og.png`: the 1200x630 link-preview image for Hackaday.io, the fediverse and LinkedIn.
 - `favicon.svg`: the tab icon.
 - `editor.png`: the old full-window screenshot, no longer used by the page.
-- `CNAME`: the custom domain, `www.thingstudio.net`.
+- `CNAME`: the custom domain, `thingstudio.net` (canonical; www redirects to it).
 - `.nojekyll`: tells Pages to serve the files as they are.
 
 The user guide is a separate Pages site, docs.thingstudio.net, published from the product repo.
