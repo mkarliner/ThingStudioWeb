@@ -164,6 +164,11 @@ td.chip-cell { font-family: var(--mono); font-size: 0.85rem; color: var(--muted)
 .ticks b { font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
 .ticks span { color: var(--muted); font-size: 0.95rem; }
 
+/* Closing call to action */
+.cta-end { padding-block: 4rem 3rem; display: grid; gap: 1rem; justify-items: start; border-bottom: 1px solid var(--line); }
+.cta-end h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.cta-end p { color: var(--muted); max-width: 36rem; }
+
 /* Footer */
 footer { padding-block: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 2rem;
   font-size: 0.95rem; color: var(--muted); }
@@ -198,7 +203,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <a class="badge" href="#status">Alpha · testers wanted</a>
       <h1>Flow programming for microcontrollers</h1>
       <p class="lede">Wire nodes together the Node-RED way, in an editor on your computer. Thingstudio compiles the
-        flow to MicroPython and sends it to an ESP32 or Raspberry Pi Pico, where it runs on its own.</p>
+        flow to MicroPython and sends it to your ESP32 or Raspberry Pi Pico, where it runs on its own. (Other
+        MicroPython boards are available.)</p>
       <div class="ctas">
         <a class="btn primary" href="https://docs.thingstudio.net/getting-started/">Get started</a>
         <a class="btn secondary" href="https://github.com/mkarliner/ThingStudio">Source on GitHub</a>
@@ -210,7 +216,6 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <a href="editor-tour.png" title="Open the labelled tour of the editor, full size">
         <img src="editor-flow.png" width="1125" height="583" alt="The Thingstudio editor: the node palette on the left, two sensor nodes wired to MQTT publish nodes in the middle, and the selected node's I2C bus and pin settings on the right.">
       </a>
-      <figcaption>A sensor node's pins are settings, checked against the board. Click for a labelled tour of the editor.</figcaption>
     </figure>
   </section>
 
@@ -246,8 +251,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <h3>Testers wanted</h3>
         <p>I'm looking for some brave souls to try the onboarding. The idea is that someone with some
           microcontroller or Node-RED experience can go from a blank board to a blinking LED, installing everything
-          on the way, MicroPython included. I'm aiming for about 15 minutes; allow up to an hour. All you need is an
-          ESP32 or a Raspberry Pi Pico.</p>
+          on the way, MicroPython included, in about 15 minutes. All you need is an ESP32 or a Raspberry Pi Pico.</p>
         <p>Start at <a href="https://docs.thingstudio.net/getting-started/">Getting started</a>, and tell me how it
           went: which board and computer, how long each step took, and every place you stopped, guessed or swore.
           All <em>polite</em> feedback very gratefully received: <a href="mailto:mike@minus1.com">mike@minus1.com</a>.</p>
@@ -287,6 +291,9 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <p>Each board has a definition: its pins, its LED, which pins are reserved and why, and which pins each SPI and
           I2C bus can use. <b>Pins…</b> in the editor lists them, and for boards like the Pico lays out the header the
           way the board looks.</p>
+        <p>Thingstudio comes with definitions for a handful of boards, and for the common ESP32 and RP2 chips. For
+          anything else, add your own: a short JSON file. Give an AI assistant the board's pinout and an existing file,
+          and it does this very well (don't tell anyone). Check the result against the datasheet.</p>
         <p>Every pin in a flow is checked against the board it's for. Each pin and bus is set up once and shared.
           <strong>If a pin doesn't exist, would crash the board, or two nodes would set it up differently, the compile
           stops and says why</strong>, before anything reaches the board.</p>
@@ -317,7 +324,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <h2>Node-RED's model, at microcontroller scale</h2>
         <p>Pick nodes from the palette and draw wires between them. Messages travel along the wires, with the value
           in <code>msg['payload']</code>, as they do in Node-RED. A timer, a function and a pin make a blinking LED.</p>
-        <p>Built-in nodes cover pins, buttons, sensors, MQTT, HTTP, UDP, displays and touch panels.</p>
+        <p>Built-in nodes cover pins, buttons, sensors, MQTT, HTTP and UDP.</p>
       </div>
       <div class="panel">
         <div class="events">
@@ -334,58 +341,12 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           <span class="chip" style="--c: var(--n-network)">http request</span>
           <span class="chip" style="--c: var(--n-network)">udp send</span>
           <span class="chip" style="--c: var(--n-network)">wifi status</span>
-          <span class="chip" style="--c: var(--n-gui)">gui screen</span>
-          <span class="chip" style="--c: var(--n-gui)">histogram</span>
-          <span class="chip" style="--c: var(--n-gui)">gui button</span>
+          <span class="chip" style="--c: var(--n-network)">http in</span>
+          <span class="chip" style="--c: var(--n-network)">udp receive</span>
+          <span class="chip" style="--c: var(--n-general)">debug</span>
         </div>
         <p class="claim">Every node has a page in the <a href="https://docs.thingstudio.net/nodes-catalog/">node
           catalog</a>.</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="text">
-        <span class="tag" style="--c: var(--n-fn)">Python</span>
-        <h2>One language, from the first wire to your own nodes</h2>
-        <p>When the built-in nodes aren't enough, write a few lines of Python in a function node. Then write your own
-          nodes, in the same Python. No new language and no firmware build at any step.</p>
-      </div>
-      <div class="panel">
-        <ol class="ladder">
-          <li><div><b>Wire built-in nodes</b><span>Most flows start and end here.</span></div></li>
-          <li><div><b>Add a function node</b><span>A few lines of Python using <code>msg['payload']</code>.</span></div></li>
-          <li><div><b>Write a custom node</b><span>A <code>.node.json</code> and a <code>.node.py</code>, dropped in a
-            folder. Nothing to rebuild.</span></div></li>
-          <li><div><b>Share it</b><span>Other people drop the same two files into their folder.</span></div></li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="text">
-        <span class="tag" style="--c: var(--n-gui)">Screens</span>
-        <h2>Touch screens without a frame buffer</h2>
-        <p>Lay out pages of readouts, labels, bars, lights, histograms and buttons on a grid of cells, so a layout
-          moves between panels. The board draws the screen in strips of about 5 KB, so a whole frame never has to fit
-          in memory.</p>
-        <p>The user guide builds <a href="https://docs.thingstudio.net/sensor-display/">a three-page touch
-          display</a>: temperature, humidity and pressure with their history, and a clock, publishing the readings
-          over MQTT.</p>
-      </div>
-      <div class="panel">
-        <div class="events">
-          <span class="chip" style="--c: var(--n-gui)">gui screen</span>
-          <span class="chip" style="--c: var(--n-gui)">gui readout</span>
-          <span class="chip" style="--c: var(--n-gui)">gui label</span>
-          <span class="chip" style="--c: var(--n-gui)">gui bar</span>
-          <span class="chip" style="--c: var(--n-gui)">histogram</span>
-          <span class="chip" style="--c: var(--n-gui)">gui light</span>
-          <span class="chip" style="--c: var(--n-gui)">gui button</span>
-          <span class="chip" style="--c: var(--n-gui)">gui modal</span>
-          <span class="chip" style="--c: var(--n-hardware)">display spi</span>
-          <span class="chip" style="--c: var(--n-hardware)">touch panel</span>
-        </div>
-        <p class="claim">Run on the Freenove ESP32-S3 4.0" display with touch, and on the CYD's display.</p>
       </div>
     </div>
 
@@ -396,8 +357,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <p>Each board here has run real flows on my bench, with the hardware nodes it was checked with. That's one
           person's testing so far, which is part of why this is alpha.</p>
         <p>Other MicroPython boards may work: pick the processor from the Board menu, or add a definition for your
-          board. <a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a> also lists the
-          displays, touch panels and sensors with built-in support.</p>
+          board. <a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a> has the full list,
+          with the sensors and other hardware that have built-in nodes.</p>
       </div>
       <div class="panel tbl">
         <table>
@@ -408,8 +369,6 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
             <tr><td>Raspberry Pi Pico 2</td><td class="chip-cell">RP2350</td></tr>
             <tr><td>LOLIN S2 Mini</td><td class="chip-cell">ESP32-S2</td></tr>
             <tr><td>LuatOS ESP32C3-CORE</td><td class="chip-cell">ESP32-C3</td></tr>
-            <tr><td>CYD (ESP32-2432S028), display only</td><td class="chip-cell">ESP32</td></tr>
-            <tr><td>Freenove 4.0" display, with touch</td><td class="chip-cell">ESP32-S3</td></tr>
           </tbody>
         </table>
       </div>
@@ -430,6 +389,12 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         </ul>
       </div>
     </div>
+  </section>
+
+  <section class="cta-end">
+    <h2>Blank board to blinking LED</h2>
+    <p>Getting started installs Thingstudio, writes MicroPython onto your board, and deploys your first flow.</p>
+    <a class="btn primary" href="https://docs.thingstudio.net/getting-started/">Get started</a>
   </section>
 
   <footer>
