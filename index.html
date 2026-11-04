@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thingstudio: flow programming for microcontrollers</title>
-<meta name="description" content="Node-RED-style flow programming for ESP32 and Raspberry Pi Pico boards. Thingstudio compiles your flow to MicroPython and the board runs it on its own. Alpha, open source, Apache 2.0.">
+<title>ThingStudio: flow programming for microcontrollers</title>
+<meta name="description" content="Node-RED-style flow programming for ESP32 and Raspberry Pi Pico boards. ThingStudio compiles your flow to MicroPython and the board runs it on its own. Alpha, open source, Apache 2.0.">
 <link rel="canonical" href="https://thingstudio.net/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thingstudio.net/">
-<meta property="og:site_name" content="Thingstudio">
-<meta property="og:title" content="Thingstudio: flow programming for microcontrollers">
+<meta property="og:site_name" content="ThingStudio">
+<meta property="og:title" content="ThingStudio: flow programming for microcontrollers">
 <meta property="og:description" content="Node-RED-style flows for ESP32 and Pico boards, compiled to MicroPython and run on the board itself. Alpha, open source, testers wanted.">
 <meta property="og:image" content="https://thingstudio.net/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The Thingstudio editor: a palette of nodes, a flow of sensor nodes wired to MQTT publish nodes, and a node's pin settings.">
+<meta property="og:image:alt" content="The ThingStudio editor: a palette of nodes, a flow of sensor nodes wired to MQTT publish nodes, and a node's pin settings.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -205,7 +205,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <a class="badge" href="#status">Alpha · testers wanted</a>
       <h1>Flow programming for microcontrollers</h1>
       <p class="lede">Inspired by Node-RED, ThingStudio gives you a visual flow programming environment for microcontrollers running MicroPython.
-      ThingStudio currently targets ESP32s, RP2040 and RP2350 (Raspberry Pi Pico) and nRF52840. (Other
+      ThingStudio currently targets ESP32s, RP2040 and RP2350 (Raspberry Pi Pico etc) and nRF52840. (Other
         MicroPython boards are available :-)</p>
       <div class="ctas">
         <a class="btn primary" href="https://docs.thingstudio.net/">Get started</a>
@@ -216,7 +216,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
     <figure class="shot">
       <a href="editor-tour.png" title="Open the labelled tour of the editor, full size">
-        <img src="editor-flow.png" width="1125" height="583" alt="The Thingstudio editor: the node palette on the left, two sensor nodes wired to MQTT publish nodes in the middle, and the selected node's I2C bus and pin settings on the right.">
+        <img src="editor-flow.png" width="1125" height="583" alt="The ThingStudio editor: the node palette on the left, two sensor nodes wired to MQTT publish nodes in the middle, and the selected node's I2C bus and pin settings on the right.">
       </a>
     </figure>
   </section>
@@ -229,9 +229,11 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
     <div class="body">
       <p>Hi, I'm Mike Karliner.</p>
       <p>I've been a huge fan of flow programming since the early days of Node-RED.</p>
-      <p>Equally, I've been keen on MicroPython since it came out, and in fact I backed the original Kickstarter way back in 2013. </p>
+      <p>Equally, I've been keen on MicroPython since it came out, and in fact I backed the original Kickstarter way
+        back in 2013.</p>
       <p>So, I thought, why not combine the best of both worlds?</p>
-      <p>Thingstudio is my attempt to do just that. Obviously, it's not an exact copy, it's native language is MicroPython for a start, and and it's running on bare metal.</p>
+      <p>ThingStudio is my attempt to do just that. Obviously, it's not an exact copy: its native language is
+        MicroPython, for a start, and it's running on bare metal.</p>
       <p>I've built it with a lot of AI assistance, but I've supervised it closely and taken my time. However, if you object to AI-written code on
         principle, it probably isn't for you, and that's fair enough.</p>
       <p>It is, and will stay, open source under a permissive licence.</p>
@@ -242,8 +244,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <p>It works on my bench, and I've at least checked it runs on all the boards I've been able to get my hands on. 
           However, I'm obviously not the best person to find the rough parts, especially in getting started. 
           It will stay in alpha until at least a few people other than me have set it
-          up and used it from the docs alone. Expect rough edges, and gaps in the docs I can't see.</p>
-          <p>Enjoy,</p>      </div>
+          up and used it from the docs alone. Expect rough edges, and gaps in the docs that I just can't see.</p>
+      </div>
 
       <div class="callout" id="testers">
         <h3>Testers wanted</h3>
@@ -260,13 +262,13 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
     </div>
   </section>
 
-  <section class="features" aria-label="What Thingstudio does">
+  <section class="features" aria-label="What ThingStudio does">
     <div class="row">
       <div class="text">
         <span class="tag" style="--c: var(--wire)">Architecture</span>
         <h2>The editor stays on your computer. The flow lives on the board.</h2>
-        <p>In Node-RED, the editor and the runtime are one program on one computer. Thingstudio splits them. You
-          build the flow on your computer; Thingstudio compiles it to MicroPython and sends it to the board over USB or
+        <p>In Node-RED, the editor and the runtime are one program on one computer. ThingStudio splits them. You
+          build the flow on your computer; ThingStudio compiles it to MicroPython and sends it to the board over USB or
           WiFi.</p>
         <p>The flow is saved on the board. <strong>Close the editor, unplug the cable, and it keeps running.</strong>
           It starts again after a reset or power cycle. A change is a new deploy, not a firmware build, and takes
@@ -292,7 +294,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <p>Each board has a definition: its pins, its LED, which pins are reserved and why, and which pins each SPI and
           I2C bus can use. <b>Pins…</b> in the editor lists them, and for boards like the Pico lays out the header the
           way the board looks.</p>
-        <p>Thingstudio comes with definitions for a handful of boards, and for the common ESP32 and RP2 chips. For
+        <p>ThingStudio comes with definitions for a handful of boards, and for the common ESP32 and RP2 chips. For
           anything else, add your own: a short JSON file. Give an AI assistant the board's pinout and an existing file,
           and it does this very well (don't tell anyone). Check the result against the datasheet.</p>
         <p>Every pin in a flow is checked against the board it's for. Each pin and bus is set up once and shared.
@@ -379,7 +381,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <div class="text">
         <span class="tag" style="--c: var(--n-general)">Yours</span>
         <h2>Local, open, and in plain files</h2>
-        <p>Thingstudio runs on your computer. There's no account and no cloud, and the editor sends nothing home.</p>
+        <p>ThingStudio runs on your computer. There's no account and no cloud, and the editor sends nothing home.</p>
       </div>
       <div class="panel">
         <ul class="ticks">
@@ -394,13 +396,13 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
   <section class="cta-end">
     <h2>Blank board to blinking LED</h2>
-    <p>Getting started installs Thingstudio, writes MicroPython onto your board, and deploys your first flow.</p>
+    <p>Getting started installs ThingStudio, writes MicroPython onto your board, and deploys your first flow.</p>
     <a class="btn primary" href="https://docs.thingstudio.net/">Get started</a>
   </section>
 
   <footer>
     <div>
-      <h3>Thingstudio</h3>
+      <h3>ThingStudio</h3>
       <ul>
         <li><a href="https://docs.thingstudio.net/getting-started/">Getting started</a></li>
         <li><a href="https://docs.thingstudio.net/">User guide</a></li>

@@ -1,6 +1,6 @@
 # ThingStudioWeb
 
-The landing page for [Thingstudio](https://github.com/mkarliner/ThingStudio), served by GitHub Pages at
+The landing page for [ThingStudio](https://github.com/mkarliner/ThingStudio), served by GitHub Pages at
 https://thingstudio.net/. One static page, no build step: what's in this repo is what's served.
 
 - `index.html`: the page. Styles inline; fonts from Google Fonts.
