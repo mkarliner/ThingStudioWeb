@@ -279,10 +279,14 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <h3>Get updates</h3>
         <p>Not ready to test yet? Leave your email and I'll write when there's something worth trying: new boards,
           new nodes, and the end of alpha.</p>
-        <script async src="https://eocampaign1.com/form/e215faec-dad4-11f1-8dfa-5b49a500fd76.js"
-          data-form="e215faec-dad4-11f1-8dfa-5b49a500fd76"></script>
-        <p class="small">Just your email address, held by <a href="https://emailoctopus.com/">EmailOctopus</a>.
-          Every email has an unsubscribe link.</p>
+        <!-- The EmailOctopus form loads only when asked for, so a visit makes no third-party request (2026-11-08). -->
+        <div id="signup-slot">
+          <button type="button" class="btn secondary" id="signup-load">Sign up for updates</button>
+          <noscript><p>The signup form needs JavaScript. Or email <a href="mailto:mike@minus1.com">mike@minus1.com</a>
+            and I'll add you.</p></noscript>
+        </div>
+        <p class="small">Just your email address, held by <a href="https://emailoctopus.com/">EmailOctopus</a>. Their
+          form loads when you press the button, not before. Every email has an unsubscribe link.</p>
       </div>
     </div>
   </section>
@@ -458,6 +462,17 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
     else.</p>
 </div>
 
+<script>
+// Load the EmailOctopus signup form on request only (see #updates).
+document.getElementById("signup-load").addEventListener("click", function () {
+  var slot = document.getElementById("signup-slot");
+  var f = document.createElement("script");
+  f.async = true;
+  f.src = "https://eocampaign1.com/form/e215faec-dad4-11f1-8dfa-5b49a500fd76.js";
+  f.setAttribute("data-form", "e215faec-dad4-11f1-8dfa-5b49a500fd76");
+  slot.replaceChildren(f);
+});
+</script>
 <script data-goatcounter="https://ts-stats.minus1.com/count" async src="https://ts-stats.minus1.com/count.js"></script>
 </body>
 </html>
