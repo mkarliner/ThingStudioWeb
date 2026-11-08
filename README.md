@@ -3,7 +3,9 @@
 The landing page for [ThingStudio](https://github.com/mkarliner/ThingStudio), served by GitHub Pages at
 https://thingstudio.net/. One static page, no build step: what's in this repo is what's served.
 
-- `index.html`: the page. Styles inline; fonts from Google Fonts.
+- `index.html`: the page. Styles inline.
+- `fonts/`: the three typefaces (latin subsets, SIL OFL; licences beside them), served from here rather than
+  Google Fonts so a visit makes no third-party request for type (2026-11-08).
 - `editor-flow.png`: the hero screenshot (v0.8.0, a sensor flow with a custom node's pin settings).
 - `editor-tour.png`: the labelled editor tour, opened by clicking the hero screenshot; copied from the product
   repo's `docs/user-guide/images/editor-parts.png`.
