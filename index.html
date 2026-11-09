@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ThingStudio: flow programming for microcontrollers</title>
-<meta name="description" content="Node-RED-style flow programming for ESP32 and Raspberry Pi Pico boards. ThingStudio compiles your flow to MicroPython and the board runs it on its own. Alpha, open source, Apache 2.0.">
+<meta name="description" content="Node-RED-style flow programming for ESP32, Raspberry Pi Pico, nRF52840 and STM32 boards. ThingStudio compiles your flow to MicroPython and the board runs it on its own. Beta, open source, Apache 2.0.">
 <link rel="canonical" href="https://thingstudio.net/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thingstudio.net/">
 <meta property="og:site_name" content="ThingStudio">
 <meta property="og:title" content="ThingStudio: flow programming for microcontrollers">
-<meta property="og:description" content="Node-RED-style flows for ESP32 and Pico boards, compiled to MicroPython and run on the board itself. Alpha, open source, testers wanted.">
+<meta property="og:description" content="Node-RED-style flows for ESP32, Pico, nRF52840 and STM32 boards, compiled to MicroPython and run on the board itself. Beta, open source, testers wanted.">
 <meta property="og:image" content="https://thingstudio.net/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -34,8 +34,8 @@
   src: url(fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2"); }
 </style>
 <style>
-/* Layout: one 72rem column; a hero with a real editor shot, a short letter, then
-   alternating text/visual rows, each row one idea. */
+/* Layout: one 72rem column; a hero with a real editor shot, alternating text/visual rows
+   (each row one idea), then a short letter with status, testers and updates. */
 :root {
   --bg: #f4f5f3;
   --surface: #ffffff;
@@ -118,8 +118,7 @@ nav.links a:hover { color: var(--fg); }
 .shot figcaption { margin-top: 0.6rem; font-size: 0.9rem; color: var(--muted); }
 
 /* Welcome letter */
-.letter { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 3rem; padding-block: 4rem;
-  border-top: 1px solid var(--line); }
+.letter { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 3rem; padding-block: 4rem; }
 .eyebrow { font: 500 0.78rem/1.4 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .letter h2 { font-size: 2rem; margin-top: 0.5rem; }
 .letter .body { max-width: 40rem; display: grid; gap: 1.05rem; }
@@ -181,7 +180,8 @@ td.chip-cell { font-family: var(--mono); font-size: 0.85rem; color: var(--muted)
 .ticks span { color: var(--muted); font-size: 0.95rem; }
 
 /* Closing call to action */
-.cta-end { padding-block: 4rem 3rem; display: grid; gap: 1rem; justify-items: start; border-bottom: 1px solid var(--line); }
+.cta-end { padding-block: 4rem 3rem; display: grid; gap: 1rem; justify-items: start; border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line); }
 .cta-end h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
 .cta-end p { color: var(--muted); max-width: 36rem; }
 
@@ -206,9 +206,9 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="wordmark" href="#">THINGSTUDIO</a>
+    <a class="wordmark" href="/">THINGSTUDIO</a>
     <nav class="links" aria-label="Main">
-      <a href="https://docs.thingstudio.net/">Get started</a>
+      <a href="https://docs.thingstudio.net/getting-started/">Get started</a>
       <a href="https://docs.thingstudio.net/">User guide</a>
       <a href="https://docs.thingstudio.net/supported-hardware/">Hardware</a>
       <a href="https://github.com/mkarliner/ThingStudio/discussions">Discussions</a>
@@ -218,13 +218,13 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
   <section class="hero">
     <div>
-      <a class="badge" href="#status">Alpha · testers wanted</a>
+      <a class="badge" href="#status">Beta · testers wanted</a>
       <h1>Flow programming for microcontrollers</h1>
       <p class="lede">Inspired by Node-RED, ThingStudio gives you a visual flow programming environment for microcontrollers running MicroPython.
-      ThingStudio currently targets ESP32s, RP2040 and RP2350 (Raspberry Pi Pico etc) and nRF52840. (Other
-        MicroPython boards are available :-)</p>
+      It works with the chip, not a particular board: ESP32, RP2040 and RP2350 (Raspberry Pi Pico), nRF52840
+        and STM32.</p>
       <div class="ctas">
-        <a class="btn primary" href="https://docs.thingstudio.net/">Get started</a>
+        <a class="btn primary" href="https://docs.thingstudio.net/getting-started/">Get started</a>
         <a class="btn secondary" href="https://demo.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="try-demo-hero">Try it in your browser</a>
       </div>
       <p class="try-note">The demo needs no install and no board, just a desktop browser. Build a flow and read the Python it makes.</p>
@@ -237,62 +237,6 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <img src="editor-flow.png" width="1125" height="583" alt="The ThingStudio editor: the node palette on the left, two sensor nodes wired to MQTT publish nodes in the middle, and the selected node's I2C bus and pin settings on the right.">
       </a>
     </figure>
-  </section>
-
-  <section class="letter" id="welcome">
-    <div>
-      <p class="eyebrow">Welcome</p>
-      <h2>Why I made it</h2>
-    </div>
-    <div class="body">
-      <p>Hi, I'm Mike Karliner.</p>
-      <p>I've been a huge fan of flow programming since the early days of Node-RED.</p>
-      <p>Equally, I've been keen on MicroPython since it came out, and in fact I backed the original Kickstarter way
-        back in 2013.</p>
-      <p>So, I thought, why not combine the best of both worlds?</p>
-      <p>ThingStudio is my attempt to do just that. Obviously, it's not an exact copy: its native language is
-        MicroPython, for a start, and it's running on bare metal.</p>
-      <p>I've built it with a lot of AI assistance, but I've supervised it closely and taken my time. However, if you object to AI-written code on
-        principle, it probably isn't for you, and that's fair enough.</p>
-      <p>It is, and will stay, open source under a permissive licence.</p>
-      <p class="sign">Mike</p>
-
-      <div class="callout" id="status" style="--c: var(--alpha)">
-        <h3>Status: alpha</h3>
-        <p>It works on my bench, and I've at least checked it runs on all the boards I've been able to get my hands on. 
-          However, I'm obviously not the best person to find the rough parts, especially in getting started. 
-          It will stay in alpha until at least a few people other than me have set it
-          up and used it from the docs alone. Expect rough edges, and gaps in the docs that I just can't see.</p>
-      </div>
-
-      <div class="callout" id="testers">
-        <h3>Testers wanted</h3>
-        <p>I'm looking for some brave souls to try the onboarding. The idea is that someone with some
-          microcontroller or Node-RED experience can go from a blank board to a blinking LED, installing everything
-          on the way, MicroPython included, in about 15 minutes. All you need is an ESP32 or a Raspberry Pi Pico.</p>
-        <p>Start at <a href="https://docs.thingstudio.net/getting-started/">Getting started</a>, and tell me how it
-          went: which board and computer, how long each step took, and every place you stopped, guessed or swore.
-          All <em>polite</em> feedback very gratefully received, in
-          <a href="https://github.com/mkarliner/ThingStudio/discussions/new?category=onboarding-reports">an
-          onboarding report</a> on GitHub, or by email if you'd rather keep it private:
-          <a href="mailto:mike@minus1.com">mike@minus1.com</a>.</p>
-      </div>
-
-      <div class="callout" id="updates">
-        <h3>Get updates</h3>
-        <p>Not ready to test yet? Leave your email and I'll write when there's something worth trying: new boards,
-          new nodes, and the end of alpha.</p>
-        <!-- The EmailOctopus form loads only when asked for, so a visit makes no third-party request (2026-11-08). -->
-        <div id="signup-slot">
-          <button type="button" class="btn secondary" id="signup-load">Sign up for updates</button>
-          <noscript><p>The signup form needs JavaScript. Or email <a href="mailto:mike@minus1.com">mike@minus1.com</a>
-            and I'll add you.</p></noscript>
-        </div>
-        <p class="small">Just your email address, held by <a href="https://emailoctopus.com/">EmailOctopus</a>. Their
-          form loads only when you press the button, and brings a font from Google with it. Every email has an
-          unsubscribe link.</p>
-      </div>
-    </div>
   </section>
 
   <section class="features" aria-label="What ThingStudio does">
@@ -329,7 +273,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           way the board looks.</p>
         <p>ThingStudio comes with definitions for a handful of boards, and for the common ESP32 and RP2 chips. For
           anything else, add your own: a short JSON file. Give an AI assistant the board's pinout and an existing file,
-          and it does this very well (don't tell anyone). Check the result against the datasheet.</p>
+          and it does this very well. Check the result against the datasheet.</p>
         <p>Every pin in a flow is checked against the board it's for. Each pin and bus is set up once and shared.
           <strong>If a pin doesn't exist, would crash the board, or two nodes would set it up differently, the compile
           stops and says why</strong>, before anything reaches the board.</p>
@@ -388,23 +332,29 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
     <div class="row">
       <div class="text">
-        <span class="tag" style="--c: var(--n-network)">Boards</span>
-        <h2>The boards it has run on</h2>
-        <p>Each board here has run real flows on my bench, with the hardware nodes it was checked with. That's one
-          person's testing so far, which is part of why this is alpha.</p>
-        <p>Other MicroPython boards may work: pick the processor from the Board menu, or add a definition for your
-          board. <a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a> has the full list,
-          with the sensors and other hardware that have built-in nodes.</p>
+        <span class="tag" style="--c: var(--n-network)">Chips</span>
+        <h2>It runs on the chip, not a particular board</h2>
+        <p>What matters is the processor. If your board has one of these chips and runs MicroPython, pick the chip
+          from the Board menu and start.</p>
+        <p>Some popular boards also come with a pin cheat sheet: which pins are free, which are reserved and why,
+          and where the LED is. <a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a>
+          lists them, with the sensors and displays that have built-in nodes.</p>
+        <p>Each chip has run flows on my bench, on the boards shown. That's one person's testing so far, which is
+          why this is a beta.</p>
       </div>
       <div class="panel tbl">
         <table>
-          <thead><tr><th>Board</th><th>Chip</th></tr></thead>
+          <thead><tr><th>Chip</th><th>Checked on</th></tr></thead>
           <tbody>
-            <tr><td>Raspberry Pi Pico</td><td class="chip-cell">RP2040</td></tr>
-            <tr><td>Raspberry Pi Pico W, with WiFi</td><td class="chip-cell">RP2040</td></tr>
-            <tr><td>Raspberry Pi Pico 2</td><td class="chip-cell">RP2350</td></tr>
-            <tr><td>LOLIN S2 Mini</td><td class="chip-cell">ESP32-S2</td></tr>
-            <tr><td>LuatOS ESP32C3-CORE</td><td class="chip-cell">ESP32-C3</td></tr>
+            <tr><td class="chip-cell">ESP32</td><td>Wemos D1 R32, CYD (ESP32-2432S028)</td></tr>
+            <tr><td class="chip-cell">ESP32-S2</td><td>LOLIN S2 Mini</td></tr>
+            <tr><td class="chip-cell">ESP32-S3</td><td>Freenove ESP32-S3 Display</td></tr>
+            <tr><td class="chip-cell">ESP32-C3</td><td>LuatOS ESP32C3-CORE</td></tr>
+            <tr><td class="chip-cell">ESP32-C5</td><td>ESP32-C5-KITC-A</td></tr>
+            <tr><td class="chip-cell">RP2040</td><td>Raspberry Pi Pico, Pico W</td></tr>
+            <tr><td class="chip-cell">RP2350</td><td>Raspberry Pi Pico 2</td></tr>
+            <tr><td class="chip-cell">nRF52840</td><td>Seeed XIAO nRF52840</td></tr>
+            <tr><td class="chip-cell">STM32F405</td><td>Pyboard v1.0</td></tr>
           </tbody>
         </table>
       </div>
@@ -428,11 +378,67 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
     </div>
   </section>
 
+  <section class="letter" id="welcome">
+    <div>
+      <p class="eyebrow">Welcome</p>
+      <h2>Why I made it</h2>
+    </div>
+    <div class="body">
+      <p>Hi, I'm Mike Karliner.</p>
+      <p>I've been a huge fan of flow programming since the early days of Node-RED.</p>
+      <p>Equally, I've been keen on MicroPython since it came out, and in fact I backed the original Kickstarter way
+        back in 2013.</p>
+      <p>So, I thought, why not combine the best of both worlds?</p>
+      <p>ThingStudio is my attempt to do just that. Obviously, it's not an exact copy: its native language is
+        MicroPython, for a start, and it's running on bare metal.</p>
+      <p>I've built it with a lot of AI assistance, but I've supervised it closely and taken my time. However, if you object to AI-written code on
+        principle, it probably isn't for you, and that's fair enough.</p>
+      <p>It is, and will stay, open source under a permissive licence.</p>
+      <p class="sign">Mike</p>
+
+      <div class="callout" id="status" style="--c: var(--alpha)">
+        <h3>Status: beta</h3>
+        <p>It works on my bench, and I've checked it runs on every board I've been able to get my hands on.
+          But I'm not the best person to find the rough parts, especially in getting started. So it's in beta:
+          it works, and now it needs people other than me to set it up and use it from the docs alone. Expect
+          rough edges, and gaps in the docs that I just can't see.</p>
+      </div>
+
+      <div class="callout" id="testers">
+        <h3>Testers wanted</h3>
+        <p>I'm looking for some brave souls to try the onboarding. The idea is that someone with some
+          microcontroller or Node-RED experience can go from a blank board to a blinking LED, installing everything
+          on the way, MicroPython included, in about 15 minutes. All you need is an ESP32 or a Raspberry Pi Pico.</p>
+        <p>Start at <a href="https://docs.thingstudio.net/getting-started/">Getting started</a>, and tell me how it
+          went: which board and computer, how long each step took, and every place you stopped, guessed or swore.
+          All <em>polite</em> feedback very gratefully received, in
+          <a href="https://github.com/mkarliner/ThingStudio/discussions/new?category=onboarding-reports">an
+          onboarding report</a> on GitHub, or by email if you'd rather keep it private:
+          <a href="mailto:mike@minus1.com">mike@minus1.com</a>.</p>
+      </div>
+
+      <div class="callout" id="updates">
+        <h3>Get updates</h3>
+        <p>Not ready to test yet? Leave your email and I'll write when there's something worth trying: new boards,
+          new nodes, and the end of beta.</p>
+        <!-- The EmailOctopus form loads only when asked for, so a visit makes no third-party request (2026-11-08). -->
+        <div id="signup-slot">
+          <button type="button" class="btn secondary" id="signup-load">Sign up for updates</button>
+          <noscript><p>The signup form needs JavaScript. Or email <a href="mailto:mike@minus1.com">mike@minus1.com</a>
+            and I'll add you.</p></noscript>
+        </div>
+        <p class="small">Just your email address, held by <a href="https://emailoctopus.com/">EmailOctopus</a>. Their
+          form loads only when you press the button, and brings a font from Google with it. Every email has an
+          unsubscribe link.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="cta-end">
     <h2>Blank board to blinking LED</h2>
     <p>Getting started installs ThingStudio, writes MicroPython onto your board, and deploys your first flow.</p>
     <div class="ctas">
-      <a class="btn primary" href="https://docs.thingstudio.net/">Get started</a>
+      <a class="btn primary" href="https://docs.thingstudio.net/getting-started/">Get started</a>
       <a class="btn secondary" href="https://demo.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="try-demo-end">Try it in your browser first</a>
     </div>
   </section>
