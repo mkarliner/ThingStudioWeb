@@ -275,7 +275,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           <h3>Not a good fit</h3>
           <ul>
             <li>You're learning to program: ThingStudio doesn't teach the basics</li>
-            <li>You need a cloud dashboard: there isn't one</li>
+            <li>You don't want to mess with hardware</li>
           </ul>
         </div>
       </div>
@@ -283,7 +283,33 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
     <div class="row">
       <div class="text">
-        <span class="tag" style="--c: var(--n-general)">Events</span>
+        <span class="tag" style="--c: var(--n-general)">Yours</span>
+        <h2>Private, open and hackable</h2>
+        <p>ThingStudio is designed to be private, and as open and hackable as possible. The editor sends nothing home,
+          and the online demo runs in your browser and sends nothing either.</p>
+      </div>
+      <div class="panel">
+        <ul class="ticks">
+          <li><b>Fully local</b><span>Development happens on your computer. There's no cloud service and no
+            account.</span></li>
+          <li><b>Works offline</b><span>Once installed, it needs no internet connection, docs included.</span></li>
+          <li><b>Git friendly</b><span>ThingStudio's files, your programs and your board definitions, are plain,
+            indented JSON that you save where you like. They diff cleanly and sit happily in a git repository.
+            Passwords and other credentials are stored separately, so a committed program holds no secrets.</span></li>
+          <li><b>Made to be extended</b><span>Write your own <a href="https://docs.thingstudio.net/custom-nodes/">custom nodes</a>, and add your
+            own <a href="https://docs.thingstudio.net/boards/#adding-a-board">boards</a> and
+            <a href="https://docs.thingstudio.net/boards/#adding-a-processor">processors</a>. You drop their files into a folder. There's
+            nothing to rebuild.</span></li>
+          <li><b>Free and open source</b><span>ThingStudio is under the
+            <a href="https://github.com/mkarliner/ThingStudio/blob/main/LICENSE">Apache 2.0 license</a>. You can use
+            it, change it and build on it, including in commercial products.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="text">
+        <span class="tag" style="--c: var(--n-fn)">Events</span>
         <h2>Respond to events, not a growing loop</h2>
         <p>A typical microcontroller program runs one main loop forever: read the sensors, check the buttons, update the
           outputs, go round again. Each new job makes the loop longer, and a slow step holds up everything else.</p>
@@ -423,25 +449,6 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
             <tr><td class="chip-cell">STM32F405</td><td>Pyboard v1.0</td></tr>
           </tbody>
         </table>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="text">
-        <span class="tag" style="--c: var(--n-general)">Yours</span>
-        <h2>Local, open, and in plain files</h2>
-        <p>ThingStudio runs on your computer. It's fully local: no cloud, no account, and the editor sends nothing home.
-          The online demo runs in your browser and sends nothing either.</p>
-      </div>
-      <div class="panel">
-        <ul class="ticks">
-          <li><b>Works offline</b><span>Once installed, it needs no internet connection, docs included.</span></li>
-          <li><b>Git friendly</b><span>Flows and board definitions are plain, indented JSON. Credentials are kept
-            separately, so a committed flow holds no secrets.</span></li>
-          <li><b>Made to be extended</b><span>Write your own nodes, and add your own boards and processors. Drop
-            their files into a folder; there's nothing to rebuild.</span></li>
-          <li><b>Apache 2.0</b><span>Use it, change it and build on it, including in commercial products.</span></li>
-        </ul>
       </div>
     </div>
   </section>
