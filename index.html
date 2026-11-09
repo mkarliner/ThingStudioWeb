@@ -363,8 +363,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           and which pins each SPI and I2C bus can use. <b>Pins…</b> in the editor shows it as a pin cheat sheet, and for boards like the Pico lays
           out the header the way the board looks.</p>
         <p>ThingStudio comes with definitions for a handful of boards. For
-          anything else, add your own: a short JSON file. Give an AI assistant the board's pinout and an existing file,
-          and it does this very well. Check the result against the datasheet.</p>
+          anything else, add your own: a short JSON file. Point an AI at the web site for a given board and it can usually
+          generate one in a few seconds. Check the result against the datasheet! :-)</p>
         <p>Every pin in a flow is checked against the board it's for. Each pin and bus is set up once and shared.
           <strong>If a pin doesn't exist, would crash the board, or two nodes would set it up differently, the compile
           stops and says why</strong>, before anything reaches the board.</p>
