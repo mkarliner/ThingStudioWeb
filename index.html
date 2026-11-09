@@ -179,6 +179,16 @@ td.chip-cell { font-family: var(--mono); font-size: 0.85rem; color: var(--muted)
 .ticks b { font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
 .ticks span { color: var(--muted); font-size: 0.95rem; }
 
+/* Event chains and the who-it's-for lists */
+.chains { display: grid; gap: 0.8rem; }
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+.chain .to { font-family: var(--mono); color: var(--wire); }
+.fit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; }
+.fit h3 { font: 500 0.75rem/1.3 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 0.5rem; }
+.fit ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.4rem; font-size: 0.95rem; }
+@media (max-width: 30rem) { .fit { grid-template-columns: minmax(0, 1fr); } }
+
 /* Closing call to action */
 .cta-end { padding-block: 4rem 3rem; display: grid; gap: 1rem; justify-items: start; border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line); }
@@ -221,7 +231,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <a class="badge" href="#status">Beta · testers wanted</a>
       <h1>Flow programming for microcontrollers</h1>
       <p class="lede">Inspired by Node-RED, ThingStudio gives you a visual flow programming environment for microcontrollers running MicroPython.
-      It runs on ESP32, RP2040 and RP2350 (Raspberry Pi Pico), nRF52840 and STM32.</p>
+      It runs on ESP32, RP2040 and RP2350 (Raspberry Pi Pico), nRF52840 and STM32. Fully local: no cloud, no
+        account.</p>
       <div class="ctas">
         <a class="btn primary" href="https://docs.thingstudio.net/getting-started/">Get started</a>
         <a class="btn secondary" href="https://demo.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="try-demo-hero">Try it in your browser</a>
@@ -240,6 +251,60 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
   </section>
 
   <section class="features" aria-label="What ThingStudio does">
+    <div class="row">
+      <div class="text">
+        <span class="tag" style="--c: var(--accent)">Who it's for</span>
+        <h2>For programmers who build things</h2>
+        <p>ThingStudio is for people who can already program and have used a microcontroller. You don't need an
+          electronics degree, but you should be comfortable wiring a breadboard and typing commands in a terminal.</p>
+        <p>Coming from another tool? Read what's different for you:
+          <a href="https://docs.thingstudio.net/coming-from/node-red/">Node-RED</a>,
+          <a href="https://docs.thingstudio.net/coming-from/micropython/">MicroPython</a>, or
+          <a href="https://docs.thingstudio.net/coming-from/arduino/">Arduino and C</a>.</p>
+      </div>
+      <div class="panel fit">
+        <div>
+          <h3>A good fit</h3>
+          <ul>
+            <li>You use Node-RED and want flows on the board itself</li>
+            <li>You write MicroPython and want events without hand-written <code>asyncio</code></li>
+            <li>You write Arduino or C and your main loop keeps growing</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Not a good fit</h3>
+          <ul>
+            <li>You're learning to program: ThingStudio doesn't teach the basics</li>
+            <li>You need a cloud dashboard: there isn't one</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="text">
+        <span class="tag" style="--c: var(--n-general)">Events</span>
+        <h2>Respond to events, not a growing loop</h2>
+        <p>A typical microcontroller program runs one main loop forever: read the sensors, check the buttons, update the
+          outputs, go round again. Each new job makes the loop longer, and a slow step holds up everything else.</p>
+        <p>A ThingStudio flow responds to events instead. Each response runs only when its event happens, and the board
+          waits on many events at once. <a href="https://docs.thingstudio.net/background/event-driven/">Event-driven
+          programming</a> explains more.</p>
+      </div>
+      <div class="panel chains">
+        <div class="chain"><span class="chip" style="--c: var(--n-hardware)">ebutton</span><span class="to">→</span>
+          <span class="chip" style="--c: var(--n-hardware)">gpio out</span></div>
+        <div class="chain"><span class="chip" style="--c: var(--n-general)">timer</span><span class="to">→</span>
+          <span class="chip" style="--c: var(--n-hardware)">bme280</span><span class="to">→</span>
+          <span class="chip" style="--c: var(--n-network)">mqtt publish</span></div>
+        <div class="chain"><span class="chip" style="--c: var(--n-network)">mqtt subscribe</span><span class="to">→</span>
+          <span class="chip" style="--c: var(--n-fn)">function</span><span class="to">→</span>
+          <span class="chip" style="--c: var(--n-hardware)">neopixel</span></div>
+        <p class="claim">Three chains in one flow. A button press lights an LED, a timer reads a sensor and publishes
+          it, and a message from the network sets a colour. None waits for the others.</p>
+      </div>
+    </div>
+
     <div class="row">
       <div class="text">
         <span class="tag" style="--c: var(--wire)">Architecture</span>
@@ -269,8 +334,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <span class="tag" style="--c: var(--n-hardware)">Hardware</span>
         <h2>It knows your board</h2>
         <p>Each board has a definition: its pins, its LED, which pins are reserved and why, and which pins each SPI and
-          I2C bus can use. <b>Pins…</b> in the editor lists them, and for boards like the Pico lays out the header the
-          way the board looks.</p>
+          I2C bus can use. <b>Pins…</b> in the editor shows it as a pin cheat sheet, and for boards like the Pico lays
+          out the header the way the board looks.</p>
         <p>ThingStudio comes with definitions for a handful of boards, and for the common ESP32 and RP2 chips. For
           anything else, add your own: a short JSON file. Give an AI assistant the board's pinout and an existing file,
           and it does this very well. Check the result against the datasheet.</p>
@@ -304,7 +369,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <h2>Node-RED's model, at microcontroller scale</h2>
         <p>Pick nodes from the palette and draw wires between them. Messages travel along the wires, with the value
           in <code>msg['payload']</code>, as they do in Node-RED. A timer, a function and a pin make a blinking LED.</p>
-        <p>Built-in nodes cover pins, buttons, sensors, MQTT, HTTP and UDP.</p>
+        <p>Built-in nodes cover pins, buttons, sensors, MQTT, HTTP and UDP. When they aren't enough, write MicroPython
+          in a function node, or package it as a custom node with its own place in the palette.</p>
       </div>
       <div class="panel">
         <div class="events">
@@ -336,8 +402,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <h2>Microcontrollers it runs on</h2>
         <p>What matters is the processor. If your board has one of these chips and runs MicroPython, pick the chip
           from the Board menu and start.</p>
-        <p>Some popular boards also come with a pin cheat sheet: which pins are free, which are reserved and why,
-          and where the LED is. <a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a>
+        <p>Boards with a definition also get a pin cheat sheet: their own pins named, such as the LED, and the
+          reserved pins marked. <a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a>
           lists them, with the sensors and displays that have built-in nodes.</p>
         <p>Each chip has run flows on my bench, on the boards shown. That's one person's testing so far, which is
           why this is a beta.</p>
@@ -364,7 +430,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <div class="text">
         <span class="tag" style="--c: var(--n-general)">Yours</span>
         <h2>Local, open, and in plain files</h2>
-        <p>ThingStudio runs on your computer. There's no account and no cloud, and the editor sends nothing home.
+        <p>ThingStudio runs on your computer. It's fully local: no cloud, no account, and the editor sends nothing home.
           The online demo runs in your browser and sends nothing either.</p>
       </div>
       <div class="panel">
@@ -372,6 +438,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           <li><b>Works offline</b><span>Once installed, it needs no internet connection, docs included.</span></li>
           <li><b>Git friendly</b><span>Flows and board definitions are plain, indented JSON. Credentials are kept
             separately, so a committed flow holds no secrets.</span></li>
+          <li><b>Made to be extended</b><span>Write your own nodes, and add your own boards and processors. Drop
+            their files into a folder; there's nothing to rebuild.</span></li>
           <li><b>Apache 2.0</b><span>Use it, change it and build on it, including in commercial products.</span></li>
         </ul>
       </div>
