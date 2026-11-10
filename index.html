@@ -212,6 +212,37 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
   .arrow::before { content: "↓"; }
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://thingstudio.net/#software",
+  "name": "ThingStudio",
+  "description": "A visual, low-code way to program microcontrollers. Build a flow of nodes and wires in your browser, in the style of Node-RED; ThingStudio compiles it to MicroPython and sends it to your board. Fully local: no cloud, no account.",
+  "url": "https://thingstudio.net/",
+  "applicationCategory": "DeveloperApplication",
+  "applicationSubCategory": "Visual programming for microcontrollers",
+  "operatingSystem": "macOS, Linux, Windows",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+  "downloadUrl": "https://github.com/mkarliner/ThingStudio/releases/latest",
+  "installUrl": "https://docs.thingstudio.net/getting-started/",
+  "softwareHelp": { "@type": "CreativeWork", "url": "https://docs.thingstudio.net/" },
+  "featureList": [
+    "Node-based flow editor in the browser",
+    "Compiles flows to MicroPython",
+    "Runs on ESP32, RP2040/RP2350 (Raspberry Pi Pico), nRF52840 and STM32 boards",
+    "Fully local: no cloud, no account",
+    "Browser demo with nothing to install"
+  ],
+  "author": { "@type": "Person", "name": "Mike Karliner" },
+  "sameAs": [
+    "https://github.com/mkarliner/ThingStudio",
+    "https://demo.thingstudio.net/"
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
