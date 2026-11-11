@@ -112,9 +112,7 @@ nav.links a:hover { color: var(--fg); }
 
 /* Screenshot */
 .shot { margin: 0; }
-.shot a { display: block; }
-.shot img { display: block; width: 100%; border-radius: 10px; border: 1px solid var(--line); }
-.shot a:hover img { border-color: var(--accent); }
+.shot video { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
 .shot figcaption { margin-top: 0.6rem; font-size: 0.9rem; color: var(--muted); }
 
 /* Welcome letter */
@@ -275,9 +273,15 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
     </div>
 
     <figure class="shot">
-      <a href="editor-tour.png" title="Open the labelled tour of the editor, full size">
-        <img src="editor-flow.png" width="1125" height="583" alt="The ThingStudio editor: the node palette on the left, two sensor nodes wired to MQTT publish nodes in the middle, and the selected node's I2C bus and pin settings on the right.">
-      </a>
+      <video id="hero-demo" width="1600" height="900" autoplay loop muted playsinline preload="auto"
+        poster="blink-demo-poster.jpg"
+        aria-label="Building the blink flow in the ThingStudio editor: a timer, a function and a gpio out node are dragged in, set up and wired together, then Compile shows the MicroPython it generates.">
+        <source src="blink-demo.mp4" type="video/mp4">
+        <source src="blink-demo.webm" type="video/webm">
+      </video>
+      <figcaption>Building the blink flow, then reading the MicroPython it makes.
+        <a href="blink-demo.mp4">Watch it full size</a>, or see the
+        <a href="editor-tour.png">labelled tour of the editor</a>.</figcaption>
     </figure>
   </section>
 
@@ -582,6 +586,14 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 </div>
 
 <script>
+// Hero video: respect reduced motion. Stop on the poster frame and offer the controls instead.
+(function () {
+  var v = document.getElementById("hero-demo");
+  if (v && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    v.removeAttribute("autoplay"); v.pause(); v.controls = true;
+  }
+})();
+
 // Load the EmailOctopus signup form on request only (see #updates).
 document.getElementById("signup-load").addEventListener("click", function () {
   var slot = document.getElementById("signup-slot");

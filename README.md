@@ -6,8 +6,12 @@ https://thingstudio.net/. One static page, no build step: what's in this repo is
 - `index.html`: the page. Styles inline.
 - `fonts/`: the three typefaces (latin subsets, SIL OFL; licences beside them), served from here rather than
   Google Fonts so a visit makes no third-party request for type (2026-11-08).
-- `editor-flow.png`: the hero screenshot (v0.8.0, a sensor flow with a custom node's pin settings).
-- `editor-tour.png`: the labelled editor tour, opened by clicking the hero screenshot; copied from the product
+- `blink-demo.mp4`, `blink-demo.webm`: the hero video (21 s loop, no sound): the blink flow built in the demo
+  editor (v0.12.1), compiled, and its MicroPython shown. Masters and the GIF version are in ThingStudioMarketing
+  `assets/thingstudio-blink-demo.*`.
+- `blink-demo-poster.jpg`: the video's last frame, shown before it plays and when reduced motion is set.
+- `editor-flow.png`: the old hero screenshot (v0.8.0, a sensor flow), no longer used by the page.
+- `editor-tour.png`: the labelled editor tour, linked from the hero video's caption; copied from the product
   repo's `docs/user-guide/images/editor-parts.png`.
 - `og.png`: the 1200x630 link-preview image for Hackaday.io, the fediverse and LinkedIn.
 - `favicon.svg`: the tab icon.
