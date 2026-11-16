@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://thingstudio.net/">
 <meta property="og:site_name" content="ThingStudio">
 <meta property="og:title" content="ThingStudio: flow programming for microcontrollers">
-<meta property="og:description" content="Node-RED-style flows for ESP32, Pico, nRF52840 and STM32 boards, compiled to MicroPython and run on the board itself. Beta, open source, testers wanted.">
+<meta property="og:description" content="Node-RED-style flows for ESP32, Pico, nRF52840 and STM32 boards, compiled to MicroPython and run on the board itself. Beta and open source.">
 <meta property="og:image" content="https://thingstudio.net/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -257,7 +257,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
   <section class="hero">
     <div>
-      <a class="badge" href="#status">Beta · testers wanted</a>
+      <a class="badge" href="#testers">Beta · tell me how it goes</a>
       <h1>Flow programming for microcontrollers</h1>
       <p class="lede">Inspired by Node-RED, ThingStudio gives you a visual flow programming environment for microcontrollers running MicroPython.
       It runs on ESP32, RP2040 and RP2350 (Raspberry Pi Pico), nRF52840 and STM32. Fully local: no cloud, no
@@ -266,7 +266,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <a class="btn primary" href="https://docs.thingstudio.net/getting-started/">Get started</a>
         <a class="btn secondary" href="https://demo.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="try-demo-hero">Try it in your browser</a>
       </div>
-      <p class="try-note">You can try the editor in your browser, with nothing to install. You can build a flow compile it and
+      <p class="try-note">You can try the editor in your browser, with nothing to install. You can build a flow, compile it and
         read the MicroPython it makes. To run a flow on a real board, install ThingStudio.</p>
       <p class="facts">Free and open source · Apache 2.0 · macOS, Linux, Windows ·
         <a href="https://github.com/mkarliner/ThingStudio">Source on GitHub</a></p>
@@ -459,15 +459,16 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
     <div class="row">
       <div class="text">
-        <span class="tag" style="--c: var(--n-network)">Hardware</span>
+        <span class="tag" style="--c: var(--n-network)">Chips</span>
         <h2>Microcontrollers it runs on</h2>
         <p>What matters is the processor. If your board has one of these chips and runs MicroPython, pick the chip
           from the Board menu and start.</p>
         <p>Boards with a definition also get a pin cheat sheet: their own pins named, such as the LED, and the
           reserved pins marked. <a href="https://docs.thingstudio.net/supported-hardware/">Supported hardware</a>
           lists them, with the sensors and displays that have built-in nodes.</p>
-        <p>Each chip has run flows on my bench, on the boards shown. That's one person's testing so far, which is
-          why this is a beta.</p>
+        <p>Support for the chips comes from MicroPython. It runs on all of these, and it's tested far more widely
+          than I could manage. On each board shown, I've checked ThingStudio's layer on top: pins, SPI and I2C buses,
+          deploying a flow, and the nodes. That's one person's testing so far, which is why this is a beta.</p>
       </div>
       <div class="panel tbl">
         <table>
@@ -513,21 +514,17 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       </div>
 
       <div class="callout" id="testers">
-        <h3>Testers wanted</h3>
-        <p>I'm looking for some brave souls to try the onboarding. The idea is that someone with some
-          microcontroller or Node-RED experience can go from a blank board to a blinking LED, installing everything
-          on the way, MicroPython included, in about 15 minutes. All you need is an ESP32 or a Raspberry Pi Pico.</p>
-        <p>Start at <a href="https://docs.thingstudio.net/getting-started/">Getting started</a>, and tell me how it
-          went: which board and computer, how long each step took, and every place you stopped, guessed or swore.
-          All <em>polite</em> feedback very gratefully received, in
-          <a href="https://github.com/mkarliner/ThingStudio/discussions/new?category=onboarding-reports">an
-          onboarding report</a> on GitHub, or by email if you'd rather keep it private:
-          <a href="mailto:info@thingstudio.net">info@thingstudio.net</a>.</p>
+        <h3>Tried it? Tell me in one line</h3>
+        <p>Whether it worked or not, post one line in the
+          <a href="https://github.com/mkarliner/ThingStudio/discussions/20">"First impressions" thread</a>: your board, and
+          how far you got. "Pico W, blinking in 20 minutes" is useful. "ESP32, gave up at the firmware install" is
+          more useful.</p>
+        <p>Rather keep it private? Email <a href="mailto:info@thingstudio.net">info@thingstudio.net</a>.</p>
       </div>
 
       <div class="callout" id="updates">
         <h3>Get updates</h3>
-        <p>Not ready to test yet? Leave your email and I'll write when there's something worth trying: new boards,
+        <p>Not ready to try it yet? Leave your email and I'll write when there's something worth trying: new boards,
           new nodes, and the end of beta.</p>
         <!-- The EmailOctopus form loads only when asked for, so a visit makes no third-party request (2026-11-08). -->
         <div id="signup-slot">
