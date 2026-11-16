@@ -37,4 +37,5 @@ tested. Change the words there first, then here.
 
 ## Going live
 
-Live. The GUI nodes aren't mentioned on purpose: they're provisional (Mike, 2026-10-26).
+Live. The GUI nodes were left out while provisional (Mike, 2026-10-26); since 2026-11-16 the page mentions them
+as early-stage, in the Flows row (Mike).

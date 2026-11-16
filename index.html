@@ -433,6 +433,11 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           in <code>msg['payload']</code>, as they do in Node-RED. A timer, a function and a pin make a blinking LED.</p>
         <p>Built-in nodes cover pins, buttons, sensors, MQTT, HTTP and UDP. When they aren't enough, write MicroPython
           in a function node, or package it as a custom node with its own place in the palette.</p>
+        <p>ThingStudio also has a built-in GUI system. It links the data in a flow to GUI widgets, such as text,
+          numbers and a histogram of a reading's recent history, which you lay out in pages with the gui screen
+          node. It drives SPI displays, like the one on
+          the Cheap Yellow Display. It's at an early stage, but it already works. See the <a href="https://docs.thingstudio.net/nodes/gui/">GUI
+          nodes</a>.</p>
       </div>
       <div class="panel">
         <div class="events">
@@ -452,6 +457,9 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           <span class="chip" style="--c: var(--n-network)">http in</span>
           <span class="chip" style="--c: var(--n-network)">udp receive</span>
           <span class="chip" style="--c: var(--n-general)">debug</span>
+          <span class="chip" style="--c: var(--n-gui)">gui screen</span>
+          <span class="chip" style="--c: var(--n-gui)">gui readout</span>
+          <span class="chip" style="--c: var(--n-gui)">gui histogram</span>
         </div>
         <p class="claim">Every node has a page in the <a href="https://docs.thingstudio.net/nodes-catalog/">node
           catalog</a>.</p>
