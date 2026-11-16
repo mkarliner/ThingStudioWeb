@@ -459,6 +459,32 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
     <div class="row">
       <div class="text">
+        <span class="tag" style="--c: var(--n-fn)">AI</span>
+        <h2>Why not just ask an AI?</h2>
+        <p>You can, and ThingStudio is built for it. An AI assistant can write a flow for you from a description.</p>
+        <p>What you get back is the difference. Code from an AI is notoriously hard to read. Because each node does a
+          large piece of the work, the flows an AI writes stay compact, however much they do. You can usually
+          understand them at a glance, and change them by hand, of course.</p>
+        <p>The flow is common ground. The AI works inside fixed nodes with typed connections, and the check names the
+          node behind each error, so the assistant can fix its own mistakes.</p>
+        <p>Most of the test flows I run on my own boards are now written this way. I've written more about it
+          <a href="https://blog.karliner.net/posts/thingstudio-common-ground/">on my blog</a>.</p>
+      </div>
+      <div class="panel">
+        <div class="split">
+          <div class="place"><b>The assistant</b><span>Writes the flow file, checks it with
+            <code>thingstudio-compile</code>, and fixes each error it names.</span></div>
+          <div class="arrow">a flow file</div>
+          <div class="place"><b>You</b><span>Open it on the canvas, read it, change it, and deploy it to your
+            board.</span></div>
+        </div>
+        <p class="claim">The <a href="https://docs.thingstudio.net/ai-authoring/">AI authoring guide</a> has the
+          setup, and a ready-made skill for Claude.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="text">
         <span class="tag" style="--c: var(--n-network)">Chips</span>
         <h2>Microcontrollers it runs on</h2>
         <p>What matters is the processor. If your board has one of these chips and runs MicroPython, pick the chip
