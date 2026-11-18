@@ -232,12 +232,12 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
     "Compiles flows to MicroPython",
     "Runs on ESP32, RP2040/RP2350 (Raspberry Pi Pico), nRF52840 and STM32 boards",
     "Fully local: no cloud, no account",
-    "Browser demo with nothing to install"
+    "ThingStudio Web: runs entirely in the browser, reaching the board over USB (Web Serial)"
   ],
   "author": { "@type": "Person", "name": "Mike Karliner" },
   "sameAs": [
     "https://github.com/mkarliner/ThingStudio",
-    "https://demo.thingstudio.net/"
+    "https://web.thingstudio.net/"
   ]
 }
 </script>
@@ -264,11 +264,13 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         account.</p>
       <div class="ctas">
         <a class="btn primary" href="https://docs.thingstudio.net/getting-started/" data-goatcounter-click="get-started-hero">Get started</a>
-        <a class="btn secondary" href="https://demo.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="try-demo-hero">Try it in your browser</a>
+        <a class="btn secondary" href="https://web.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="open-web-hero">Open ThingStudio Web</a>
       </div>
-      <p class="try-note">You can try the editor in your browser, with nothing to install. You can build a flow, compile it and
-        read the MicroPython it makes. To run a flow on a real board, install ThingStudio.</p>
-      <p class="facts">Free and open source · Apache 2.0 · macOS, Linux, Windows ·
+      <p class="try-note"><b>ThingStudio Web runs entirely in your browser. No cloud, no account, no cookies.</b>
+        Plug a board into your computer and open the editor in Chrome or Edge, or just try it without a board. Page
+        counts by <a href="https://www.goatcounter.com/">GoatCounter</a>, on my own server; there's no user
+        tracking.</p>
+      <p class="facts">Free and open source · Apache 2.0 · Chrome or Edge, or the App on macOS, Linux, Windows ·
         <a href="https://github.com/mkarliner/ThingStudio">Source on GitHub</a></p>
     </div>
 
@@ -280,7 +282,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
         <source src="blink-demo.webm" type="video/webm">
       </video>
       <figcaption>Building the blink flow, then reading the MicroPython it makes.
-        <a href="https://demo.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="try-demo-caption">Try
+        <a href="https://web.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="open-web-caption">Try
         it yourself in your browser</a>, with nothing to install. Or <a href="blink-demo.mp4">watch it full size</a>, or
         see the <a href="editor-tour.png">labelled tour of the editor</a>.</figcaption>
     </figure>
@@ -321,14 +323,22 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <div class="text">
         <span class="tag" style="--c: var(--n-general)">Yours</span>
         <h2>Private, open and hackable</h2>
-        <p>ThingStudio is designed to be private, and as open and hackable as possible. The editor sends nothing home,
-          and the online demo runs in your browser and sends nothing either.</p>
+        <p>ThingStudio is designed to be private, and as open and hackable as possible.</p>
+        <p><b>What happens when you open the editor.</b> The site sends your browser the editor, then steps out. Your
+          flows are saved where you put them, on your own disk. Your board is reached over the USB cable, browser to
+          board. WiFi and MQTT details stay in the tab and are gone when you close it. Nothing is sent to us. The
+          server keeps a three-day access log, to run the server and count visits. Each release's
+          <a href="https://github.com/mkarliner/ThingStudio/releases/latest">request report</a> lists every request
+          the editor made while it was tested: all to its own site.</p>
+        <p><b>Want it to work with no internet?</b> Install ThingStudio App. Same editor, plus the WiFi link to your
+          board, custom nodes and your own board definitions.</p>
       </div>
       <div class="panel">
         <ul class="ticks">
           <li><b>Fully local</b><span>Development happens on your computer. There's no cloud service and no
             account.</span></li>
-          <li><b>Works offline</b><span>Once installed, it needs no internet connection, docs included.</span></li>
+          <li><b>Works offline</b><span>ThingStudio App needs no internet connection once installed, docs
+            included.</span></li>
           <li><b>Git friendly</b><span>ThingStudio's files, your programs and your board definitions, are plain,
             indented JSON that you save where you like. They diff cleanly and sit happily in a git repository.
             Passwords and other credentials are stored separately, so a committed program holds no secrets.</span></li>
@@ -386,8 +396,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           <div class="place"><b>The board</b><span>MicroPython, the flow, and only the libraries it uses. Nothing
             else.</span></div>
         </div>
-        <p class="claim">A blank board? <b>Tools → Install firmware…</b> writes MicroPython onto ESP32 and Pico boards
-          from the editor.</p>
+        <p class="claim">A blank board? <a href="https://web.thingstudio.net/setup">Set up a board</a> writes
+          MicroPython and the ThingStudio runtime onto ESP32 and Pico boards, from your browser.</p>
       </div>
     </div>
 
@@ -579,7 +589,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
     <p>Getting started installs ThingStudio, writes MicroPython onto your board, and deploys your first flow.</p>
     <div class="ctas">
       <a class="btn primary" href="https://docs.thingstudio.net/getting-started/" data-goatcounter-click="get-started-end">Get started</a>
-      <a class="btn secondary" href="https://demo.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="try-demo-end">Try it in your browser first</a>
+      <a class="btn secondary" href="https://web.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="open-web-end">Open ThingStudio Web</a>
     </div>
   </section>
 
@@ -612,8 +622,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
   </footer>
   <p class="stats">Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, run on my own
     server: pages viewed, the site you came from, browser, screen size and country. No cookies, and nothing that
-    identifies you. Clicks on the "Try it in your browser" buttons are counted too. The editor demo counts nothing; its server keeps a three-day access log, with the end of each address
-    masked, only to run the server. If you sign up for updates, your email address is kept by EmailOctopus and used for nothing
+    identifies you. Clicks on the "Open ThingStudio Web" buttons are counted too. ThingStudio Web has no counting
+    script: its server keeps a three-day access log, used to run the server and count visits. If you sign up for updates, your email address is kept by EmailOctopus and used for nothing
     else.</p>
 </div>
 
