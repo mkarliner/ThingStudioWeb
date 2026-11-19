@@ -293,10 +293,25 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
     <div class="row" id="web-or-app">
       <div class="text">
         <span class="tag" style="--c: var(--accent)">Web or App</span>
-        <h2>ThingStudio Web and ThingStudio App</h2>
-        <p>Both are the same editor, and neither uses a cloud service or an account. ThingStudio Web is the quickest
-          start: open it, plug in a board, deploy. ThingStudio App is for keeps: it works with no internet, talks to
-          boards over WiFi, and takes your own nodes and boards.</p>
+        <h2>Web or App, private either way</h2>
+        <p>ThingStudio Web and ThingStudio App are the same editor. Web is the quickest start: open it, plug in a
+          board, deploy. The App is for keeps: it works with no internet, talks to boards over WiFi, and takes your
+          own nodes and boards.</p>
+        <p>When you open ThingStudio Web, the site sends your browser the editor, then steps out. Flows are saved on
+          your own disk, the board is reached over the USB cable, and WiFi and MQTT details stay in the tab until you
+          close it. Nothing is sent to me. The server keeps a three-day access log, to run it and count visits. Each
+          release's <a href="https://github.com/mkarliner/ThingStudio/releases/latest">request report</a> lists
+          every request the editor made while it was tested: all to its own site.</p>
+        <ul class="ticks">
+          <li><b>Git friendly</b><span>Flows and board definitions are plain JSON that diff cleanly. Passwords are
+            kept apart, so a committed flow holds no secrets.</span></li>
+          <li><b>Made to be extended</b><span>In the App, <a href="https://docs.thingstudio.net/custom-nodes/">custom
+            nodes</a>, <a href="https://docs.thingstudio.net/boards/#adding-a-board">boards</a> and
+            <a href="https://docs.thingstudio.net/boards/#adding-a-processor">processors</a> are files you drop
+            into a folder. Nothing to rebuild.</span></li>
+          <li><b>Free and open source</b><span><a href="https://github.com/mkarliner/ThingStudio/blob/main/LICENSE">Apache
+            2.0</a>, including in commercial products.</span></li>
+        </ul>
         <p><a href="https://web.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="open-web-table">Run
           in your browser</a> or <a href="https://docs.thingstudio.net/getting-started/" data-goatcounter-click="get-started-table">install
           ThingStudio App</a>.</p>
@@ -351,47 +366,17 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
     <div class="row">
       <div class="text">
-        <span class="tag" style="--c: var(--n-general)">Yours</span>
-        <h2>Private, open and hackable</h2>
-        <p>ThingStudio is designed to be private, and as open and hackable as possible.</p>
-        <p><b>What happens when you open the editor.</b> The site sends your browser the editor, then steps out. Your
-          flows are saved where you put them, on your own disk. Your board is reached over the USB cable, browser to
-          board. WiFi and MQTT details stay in the tab and are gone when you close it. Nothing is sent to me. The
-          server keeps a three-day access log, to run the server and count visits. Each release's
-          <a href="https://github.com/mkarliner/ThingStudio/releases/latest">request report</a> lists every request
-          the editor made while it was tested: all to its own site.</p>
-        <p><b>Want it to work with no internet?</b> Install ThingStudio App. Same editor, plus the WiFi link to your
-          board, custom nodes and your own board definitions.</p>
-      </div>
-      <div class="panel">
-        <ul class="ticks">
-          <li><b>No cloud, no account</b><span>ThingStudio Web runs entirely in your browser. There's no cloud
-            service, no account and no cookies.</span></li>
-          <li><b>Works offline</b><span>ThingStudio App needs no internet connection once installed, docs
-            included.</span></li>
-          <li><b>Git friendly</b><span>ThingStudio's files, your programs and your board definitions, are plain,
-            indented JSON that you save where you like. They diff cleanly and sit happily in a git repository.
-            Passwords and other credentials are stored separately, so a committed program holds no secrets.</span></li>
-          <li><b>Made to be extended</b><span>Write your own <a href="https://docs.thingstudio.net/custom-nodes/">custom nodes</a>, and add your
-            own <a href="https://docs.thingstudio.net/boards/#adding-a-board">boards</a> and
-            <a href="https://docs.thingstudio.net/boards/#adding-a-processor">processors</a>. You drop their files into a folder. There's
-            nothing to rebuild.</span></li>
-          <li><b>Free and open source</b><span>ThingStudio is under the
-            <a href="https://github.com/mkarliner/ThingStudio/blob/main/LICENSE">Apache 2.0 license</a>. You can use
-            it, change it and build on it, including in commercial products.</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="text">
-        <span class="tag" style="--c: var(--n-fn)">Events</span>
-        <h2>Respond to events, not a growing loop</h2>
-        <p>A typical microcontroller program runs one main loop forever: read the sensors, check the buttons, update the
-          outputs, go round again. Each new job makes the loop longer, and a slow step holds up everything else.</p>
-        <p>A ThingStudio flow responds to events instead. Each response runs only when its event happens, and the board
-          waits on many events at once. <a href="https://docs.thingstudio.net/background/event-driven/">Event-driven
+        <span class="tag" style="--c: var(--n-fn)">Flows</span>
+        <h2>Node-RED's model, responding to events</h2>
+        <p>Pick nodes from the palette and draw wires between them. Messages travel along the wires, with the value
+          in <code>msg['payload']</code>, as they do in Node-RED.</p>
+        <p>There's no main loop to grow. Each chain runs only when its event happens, and the board waits on many
+          events at once. <a href="https://docs.thingstudio.net/background/event-driven/">Event-driven
           programming</a> explains more.</p>
+        <p>Built-in nodes cover pins, buttons, sensors, MQTT, HTTP and UDP. When they aren't enough, write MicroPython
+          in a function node, or package it as a custom node. A built-in GUI system, at an early stage but working,
+          drives SPI displays such as the Cheap Yellow Display: see the
+          <a href="https://docs.thingstudio.net/nodes/gui/">GUI nodes</a>.</p>
       </div>
       <div class="panel chains">
         <div class="chain"><span class="chip" style="--c: var(--n-hardware)">ebutton</span><span class="to">→</span>
@@ -403,7 +388,8 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           <span class="chip" style="--c: var(--n-fn)">function</span><span class="to">→</span>
           <span class="chip" style="--c: var(--n-hardware)">neopixel</span></div>
         <p class="claim">Three chains in one flow. A button press lights an LED, a timer reads a sensor and publishes
-          it, and a message from the network sets a colour. None waits for the others.</p>
+          it, and a message from the network sets a colour. None waits for the others. Every node has a page in the
+          <a href="https://docs.thingstudio.net/nodes-catalog/">node catalog</a>.</p>
       </div>
     </div>
 
@@ -435,17 +421,14 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <div class="text">
         <span class="tag" style="--c: var(--n-hardware)">Hardware</span>
         <h2>It knows your board</h2>
-        <p>Boards can have a definition file, which lists the board's pins, its LED, which pins are reserved and why,
-          and which pins each SPI and I2C bus can use. <b>Pins…</b> in the editor shows it as a pin cheat sheet, and for boards like the Pico lays
-          out the header the way the board looks.</p>
+        <p>A board's definition file lists its pins, its LED, which pins are reserved and why, and which pins each
+          SPI and I2C bus can use. <b>Pins…</b> in the editor shows it as a pin cheat sheet.</p>
         <p>ThingStudio comes with definitions for a handful of boards. For
           anything else, add your own: a short JSON file. Point an AI at the web site for a given board and it can usually
           generate one in a few seconds. Check the result against the datasheet! :-)</p>
         <p>Every pin in a flow is checked against the board it's for. Each pin and bus is set up once and shared.
           <strong>If a pin doesn't exist, would crash the board, or two nodes would set it up differently, the compile
           stops and says why</strong>, before anything reaches the board.</p>
-        <p>Flows respond to events, and the board waits on many at once: interrupts, debounced buttons, a rotary
-          encoder, an analog input that only reports when a reading crosses its bounds.</p>
       </div>
       <div class="panel">
         <div class="events">
@@ -465,57 +448,13 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       </div>
     </div>
 
-    <div class="row">
-      <div class="text">
-        <span class="tag" style="--c: var(--n-general)">Flows</span>
-        <h2>Node-RED's model, at microcontroller scale</h2>
-        <p>Pick nodes from the palette and draw wires between them. Messages travel along the wires, with the value
-          in <code>msg['payload']</code>, as they do in Node-RED. A timer, a function and a pin make a blinking LED.</p>
-        <p>Built-in nodes cover pins, buttons, sensors, MQTT, HTTP and UDP. When they aren't enough, write MicroPython
-          in a function node, or package it as a custom node with its own place in the palette.</p>
-        <p>ThingStudio also has a built-in GUI system. It links the data in a flow to GUI widgets, such as text,
-          numbers and a histogram of a reading's recent history, which you lay out in pages with the gui screen
-          node. It drives SPI displays, like the one on
-          the Cheap Yellow Display. It's at an early stage, but it already works. See the <a href="https://docs.thingstudio.net/nodes/gui/">GUI
-          nodes</a>.</p>
-      </div>
-      <div class="panel">
-        <div class="events">
-          <span class="chip" style="--c: var(--n-general)">inject</span>
-          <span class="chip" style="--c: var(--n-general)">timer</span>
-          <span class="chip" style="--c: var(--n-fn)">function</span>
-          <span class="chip" style="--c: var(--n-general)">change</span>
-          <span class="chip" style="--c: var(--n-general)">filter</span>
-          <span class="chip" style="--c: var(--n-general)">delay</span>
-          <span class="chip" style="--c: var(--n-general)">journal</span>
-          <span class="chip" style="--c: var(--n-network)">ntp</span>
-          <span class="chip" style="--c: var(--n-network)">mqtt publish</span>
-          <span class="chip" style="--c: var(--n-network)">mqtt subscribe</span>
-          <span class="chip" style="--c: var(--n-network)">http request</span>
-          <span class="chip" style="--c: var(--n-network)">udp send</span>
-          <span class="chip" style="--c: var(--n-network)">wifi status</span>
-          <span class="chip" style="--c: var(--n-network)">http in</span>
-          <span class="chip" style="--c: var(--n-network)">udp receive</span>
-          <span class="chip" style="--c: var(--n-general)">debug</span>
-          <span class="chip" style="--c: var(--n-gui)">gui screen</span>
-          <span class="chip" style="--c: var(--n-gui)">gui readout</span>
-          <span class="chip" style="--c: var(--n-gui)">gui histogram</span>
-        </div>
-        <p class="claim">Every node has a page in the <a href="https://docs.thingstudio.net/nodes-catalog/">node
-          catalog</a>.</p>
-      </div>
-    </div>
-
     <div class="row" id="ai">
       <div class="text">
         <span class="tag" style="--c: var(--n-fn)">AI</span>
         <h2>Why not just ask an AI?</h2>
-        <p>You can, and ThingStudio is built for it. An AI assistant can write a flow for you from a description.</p>
-        <p>What you get back is the difference. Code from an AI is notoriously hard to read. Because each node does a
-          large piece of the work, the flows an AI writes stay compact, however much they do. You can usually
-          understand them at a glance, and change them by hand, of course.</p>
-        <p>The flow is common ground. The AI works inside fixed nodes with typed connections, and the check names the
-          node behind each error, so the assistant can fix its own mistakes.</p>
+        <p>You can, and ThingStudio is built for it. Code from an AI is notoriously hard to read; a flow isn't. Each
+          node does a large piece of the work, so the flow stays compact and you can read it at a glance, and change
+          it by hand. The check names the node behind each error, so the assistant can fix its own mistakes.</p>
         <p>Most of the test flows I run on my own boards are now written this way. I've written more about it
           <a href="https://blog.karliner.net/posts/thingstudio-common-ground/">on my blog</a>.</p>
       </div>
