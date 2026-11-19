@@ -261,15 +261,17 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <a class="badge" href="#testers">Beta · tell me how it goes</a>
       <h1>Flow programming for microcontrollers</h1>
       <p class="lede">Inspired by Node-RED, ThingStudio gives you a visual flow programming environment for microcontrollers running MicroPython.
-      It runs on ESP32, RP2040 and RP2350 (Raspberry Pi Pico), nRF52840 and STM32. Runs entirely in your
-        browser. No cloud, no account, no cookies.</p>
+      It runs on ESP32, RP2040 and RP2350 (Raspberry Pi Pico), nRF52840 and STM32.</p>
+      <p class="lede">Use it two ways, both with no cloud, no account and no cookies. <b>ThingStudio Web</b> runs
+        entirely in your browser, with nothing to install. <b>ThingStudio App</b> installs on your computer, works
+        offline, and adds WiFi, custom nodes and your own boards. <a href="#web-or-app">See what's the
+        difference</a>.</p>
       <div class="ctas">
         <a class="btn primary" href="https://web.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="open-web-hero">Run in your browser</a>
         <a class="btn secondary" href="https://docs.thingstudio.net/getting-started/" data-goatcounter-click="get-started-hero">Install ThingStudio App</a>
       </div>
       <p class="try-note">Plug a board into your computer and open the editor in Chrome or Edge, or just try it
-        without a board. Page counts by <a href="https://www.goatcounter.com/">GoatCounter</a>, on my own server; there's no user
-        tracking.</p>
+        without a board.</p>
       <p class="facts">Free and open source · Apache 2.0 · Chrome or Edge, or the App on macOS, Linux, Windows ·
         <a href="https://github.com/mkarliner/ThingStudio">Source on GitHub</a></p>
     </div>
@@ -289,6 +291,35 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
   </section>
 
   <section class="features" aria-label="What ThingStudio does">
+    <div class="row" id="web-or-app">
+      <div class="text">
+        <span class="tag" style="--c: var(--accent)">Web or App</span>
+        <h2>ThingStudio Web and ThingStudio App</h2>
+        <p>Both are the same editor, and neither uses a cloud service or an account. ThingStudio Web is the quickest
+          start: open it, plug in a board, deploy. ThingStudio App is for keeps: it works with no internet, talks to
+          boards over WiFi, and takes your own nodes and boards.</p>
+        <p><a href="https://web.thingstudio.net/" target="_blank" rel="noopener" data-goatcounter-click="open-web-table">Run
+          in your browser</a> or <a href="https://docs.thingstudio.net/getting-started/" data-goatcounter-click="get-started-table">install
+          ThingStudio App</a>.</p>
+      </div>
+      <div class="panel tbl">
+        <table>
+          <thead><tr><th></th><th>Web</th><th>App</th></tr></thead>
+          <tbody>
+            <tr><td>Install</td><td>Nothing to install</td><td>macOS, Linux, Windows</td></tr>
+            <tr><td>Browser</td><td>Chrome or Edge on a desktop to reach a board; others build and compile</td><td>Opens in Chrome, Edge, Firefox or Safari</td></tr>
+            <tr><td>Reaching the board</td><td>USB cable</td><td>USB cable or WiFi</td></tr>
+            <tr><td>Setting up a board</td><td><a href="https://web.thingstudio.net/setup">Set up a board</a></td><td>Tools → Install firmware</td></tr>
+            <tr><td>Works offline</td><td>No</td><td>Yes, docs included</td></tr>
+            <tr><td>Custom nodes and your own boards</td><td>No</td><td>Yes</td></tr>
+            <tr><td>WiFi and MQTT passwords</td><td>Kept in the tab until you close it</td><td>Saved on your computer, apart from your flows</td></tr>
+            <tr><td>Updates</td><td>Always the latest</td><td>You upgrade when you choose</td></tr>
+            <tr><td>Cloud, account, cookies</td><td>None</td><td>None</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="row">
       <div class="text">
         <span class="tag" style="--c: var(--accent)">Who it's for</span>
