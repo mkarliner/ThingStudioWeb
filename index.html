@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ThingStudio: flow programming for microcontrollers</title>
-<meta name="description" content="Node-RED-style flow programming for ESP32, Raspberry Pi Pico, nRF52840 and STM32 boards. ThingStudio compiles your flow to MicroPython and the board runs it on its own. Beta, open source, Apache 2.0.">
+<meta name="description" content="Node-RED-style flow programming for ESP32, Raspberry Pi Pico, nRF52840 and STM32 boards. ThingStudio compiles your flow to MicroPython and the board runs it on its own. Open source, Apache 2.0.">
 <link rel="canonical" href="https://thingstudio.net/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thingstudio.net/">
 <meta property="og:site_name" content="ThingStudio">
 <meta property="og:title" content="ThingStudio: flow programming for microcontrollers">
-<meta property="og:description" content="Node-RED-style flows for ESP32, Pico, nRF52840 and STM32 boards, compiled to MicroPython and run on the board itself. Beta and open source.">
+<meta property="og:description" content="Node-RED-style flows for ESP32, Pico, nRF52840 and STM32 boards, compiled to MicroPython and run on the board itself. Open source.">
 <meta property="og:image" content="https://thingstudio.net/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -258,7 +258,6 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
 
   <section class="hero">
     <div>
-      <a class="badge" href="#testers">Beta · tell me how it goes</a>
       <h1>Flow programming for microcontrollers</h1>
       <p class="lede">Inspired by Node-RED, ThingStudio gives you a visual flow programming environment for microcontrollers running MicroPython.
       It runs on ESP32, RP2040 and RP2350 (Raspberry Pi Pico), nRF52840 and STM32.</p>
@@ -544,7 +543,7 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
           lists them, with the sensors and displays that have built-in nodes.</p>
         <p>Support for the chips comes from MicroPython. It runs on all of these, and it's tested far more widely
           than I could manage. On each board shown, I've checked ThingStudio's layer on top: pins, SPI and I2C buses,
-          deploying a flow, and the nodes. That's one person's testing so far, which is why this is a beta.</p>
+          deploying a flow, and the nodes. That's one person's testing so far: reports from other boards are welcome.</p>
       </div>
       <div class="panel tbl">
         <table>
@@ -581,36 +580,24 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem
       <p>It is, and will stay, open source under a permissive licence.</p>
       <p class="sign">Mike</p>
 
-      <div class="callout" id="status" style="--c: var(--alpha)">
-        <h3>Status: beta</h3>
-        <p>It works on my bench, and I've checked it runs on every board I've been able to get my hands on.
-          But I'm not the best person to find the rough parts, especially in getting started. So it's in beta:
-          it works, and now it needs people other than me to set it up and use it from the docs alone. Expect
-          rough edges, and gaps in the docs that I just can't see.</p>
-      </div>
-
       <div class="callout" id="testers">
-        <h3>Tried it? Tell me in one line</h3>
-        <p>Whether it worked or not, post one line in the
-          <a href="https://github.com/mkarliner/ThingStudio/discussions/20">"First impressions" thread</a>: your board, and
-          how far you got. "Pico W, blinking in 20 minutes" is useful. "ESP32, gave up at the firmware install" is
-          more useful.</p>
-        <p>Rather keep it private? Email <a href="mailto:info@thingstudio.net">info@thingstudio.net</a>.</p>
+        <h3>Tried it?</h3>
+        <p>Post one line in the <a href="https://github.com/mkarliner/ThingStudio/discussions/20">"First
+          impressions" thread</a>: your board, and how far you got. Or email
+          <a href="mailto:info@thingstudio.net">info@thingstudio.net</a>.</p>
       </div>
 
       <div class="callout" id="updates">
         <h3>Get updates</h3>
-        <p>Not ready to try it yet? Leave your email and I'll write when there's something worth trying: new boards,
-          new nodes, and the end of beta.</p>
+        <p>New boards and nodes, now and then.</p>
         <!-- The EmailOctopus form loads only when asked for, so a visit makes no third-party request (2026-11-08). -->
         <div id="signup-slot">
           <button type="button" class="btn secondary" id="signup-load">Sign up for updates</button>
           <noscript><p>The signup form needs JavaScript. Or email <a href="mailto:info@thingstudio.net">info@thingstudio.net</a>
             and I'll add you.</p></noscript>
         </div>
-        <p class="small">Just your email address, held by <a href="https://emailoctopus.com/">EmailOctopus</a>. Their
-          form loads only when you press the button, and brings a font from Google with it. Every email has an
-          unsubscribe link.</p>
+        <p class="small">Your email address is held by <a href="https://emailoctopus.com/">EmailOctopus</a>. Their form,
+          and a font from Google, load only when you press the button.</p>
       </div>
     </div>
   </section>
