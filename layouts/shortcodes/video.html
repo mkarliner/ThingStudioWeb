@@ -1,0 +1,41 @@
+{{- /*
+  A video with no third-party player and nothing loaded until it's needed.
+
+  {{< video src="/media/my-clip" poster="/media/my-clip-poster.jpg" caption="What it shows" >}}
+
+  src      Path or URL without extension; the shortcode offers .webm then .mp4. Give a full filename
+           (ending .mp4/.webm/.mov) to use just that file. Local files go in static/; anything over
+           about 5 MB goes to external storage and src is its full URL.
+  poster   Image shown before playing. Strongly recommended: without it the browser shows a blank box.
+  caption  Optional figcaption (markdown allowed).
+  loop     "true" for a short silent loop: autoplays muted, unless the visitor prefers reduced motion.
+           Otherwise the video has controls and loads nothing until played.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- $poster := .Get "poster" -}}
+{{- $loop := eq (.Get "loop") "true" -}}
+{{- $hasExt := findRE `\.(mp4|webm|mov|m4v)$` $src -}}
+<figure class="clip">
+  <video {{ if $loop }}muted loop playsinline preload="metadata" data-autoloop{{ else }}controls playsinline preload="none"{{ end }}
+    {{- with $poster }} poster="{{ . }}"{{ end }}>
+    {{- if $hasExt }}
+    <source src="{{ $src }}" type="video/{{ cond (findRE `\.webm$` $src) "webm" "mp4" }}">
+    {{- else }}
+    <source src="{{ $src }}.webm" type="video/webm">
+    <source src="{{ $src }}.mp4" type="video/mp4">
+    {{- end }}
+    <a href="{{ cond $hasExt $src (print $src ".mp4") }}">Download the video</a>
+  </video>
+  {{- with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>
+{{- if $loop }}{{ if not (.Page.Scratch.Get "autoloop-js") }}{{ .Page.Scratch.Set "autoloop-js" true }}
+<script>
+// Short loops autoplay only without a reduced-motion preference; otherwise they show controls.
+document.addEventListener("DOMContentLoaded", function () {
+  var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("video[data-autoloop]").forEach(function (v) {
+    if (still) { v.controls = true; } else { v.play().catch(function () { v.controls = true; }); }
+  });
+});
+</script>
+{{- end }}{{ end }}

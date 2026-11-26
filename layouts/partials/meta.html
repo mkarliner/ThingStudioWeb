@@ -1,0 +1,4 @@
+<p class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+  {{- with .GetTerms "boards" }} · {{ range . }}<a class="chip" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}{{ end }}
+  {{- with .GetTerms "tags" }} · {{ range . }}<a class="chip" href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}{{ end }}
+</p>

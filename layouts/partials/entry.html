@@ -1,0 +1,6 @@
+    <li class="entry sec-{{ .Section }}">
+      <p class="eyebrow">{{ (site.GetPage .Section).Title }}</p>
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      {{ partial "meta.html" . }}
+      <p class="summary">{{ .Description | default .Summary | plainify | truncate 220 }}</p>
+    </li>

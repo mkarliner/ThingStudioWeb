@@ -1,0 +1,9 @@
+  <header class="top">
+    <a class="wordmark" href="/">THINGSTUDIO</a>
+    <nav class="links" aria-label="Main">
+      {{- $here := .FirstSection }}
+      {{- range site.Menus.main }}
+      <a href="{{ .URL }}"{{ with .Page }}{{ if eq . $here }} aria-current="page"{{ end }}{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+  </header>

@@ -1,0 +1,26 @@
+{{ define "main" }}
+<div class="page-head">
+  {{- if eq .Kind "term" }}<p class="eyebrow">{{ .Data.Singular | humanize }}</p>{{ end }}
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+  {{ with .OutputFormats.Get "rss" }}<a class="feed" href="{{ .Permalink }}">RSS feed</a>{{ end }}
+</div>
+{{ with .Content }}<div class="prose" style="max-width:44rem">{{ . }}</div>{{ end }}
+{{ $pages := .Pages }}
+{{ if eq .Kind "taxonomy" }}
+  <ul class="entries">
+  {{ range .Data.Terms.Alphabetical }}
+    <li class="entry"><h2><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></h2>
+      <p class="meta">{{ .Count }} {{ cond (eq .Count 1) "post" "posts" }}</p></li>
+  {{ end }}
+  </ul>
+{{ else if $pages }}
+  <ul class="entries">
+  {{ range $pages.ByDate.Reverse }}
+    {{ partial "entry.html" . }}
+  {{ end }}
+  </ul>
+{{ else }}
+  <p class="empty">Nothing here yet. The <a href="{{ with .OutputFormats.Get "rss" }}{{ .RelPermalink }}{{ end }}">feed</a> will tell you when there is.</p>
+{{ end }}
+{{ end }}

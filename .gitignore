@@ -1,0 +1,6 @@
+# Hugo build output
+/public/
+/resources/_gen/
+.hugo_build.lock
+# Local tooling, not part of the site
+goatcounter_mcp.py

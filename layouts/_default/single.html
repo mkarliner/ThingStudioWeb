@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article class="post sec-{{ .Section }}">
+  <header>
+    <p class="eyebrow"><a href="{{ (site.GetPage .Section).RelPermalink }}">{{ (site.GetPage .Section).Title }}</a></p>
+    <h1>{{ .Title }}</h1>
+    {{ partial "meta.html" . }}
+  </header>
+  <div class="prose">
+    {{ .Content }}
+  </div>
+</article>
+<nav class="post-nav" aria-label="More in {{ (site.GetPage .Section).Title }}">
+  <span>{{ with .PrevInSection }}← <a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}</span>
+  <span>{{ with .NextInSection }}<a href="{{ .RelPermalink }}">{{ .Title }}</a> →{{ end }}</span>
+</nav>
+{{ end }}

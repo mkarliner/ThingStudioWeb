@@ -1,0 +1,73 @@
+baseURL = "https://thingstudio.net/"
+languageCode = "en-GB"
+title = "ThingStudio"
+# Content files are the source of truth; nothing is fetched at build time.
+enableRobotsTXT = true
+# Dates in front matter only: no git-derived dates, so a rebuild never changes a page.
+enableGitInfo = false
+disableHugoGeneratorInject = true
+# Keep board and tag names as written ("esp32-c3", not "Esp32-C3").
+capitalizeListTitles = false
+
+[params]
+  description = "Flow programming for microcontrollers: flows compiled to MicroPython that run on the board itself."
+  # Counting script, same server as the landing page (see the footer's stats note).
+  goatcounter = "https://ts-stats.minus1.com/count"
+
+# Kinds of content. Each section gets its own list page and RSS feed:
+#   /announcements/  releases and news (feed: /announcements/index.xml)
+#   /logs/           project logs: dated build stories, longer than a tutorial
+#   /demos/          short demo clips with a few lines each
+# Basic tutorials stay in the user guide at docs.thingstudio.net.
+[taxonomies]
+  tag = "tags"
+  board = "boards"
+
+# The landing page is static/index.html, served as it is (no template, comments kept),
+# so Hugo makes only the site-wide feed for the home page, not an HTML page.
+[outputs]
+  home = ["RSS"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML"]
+  term = ["HTML", "RSS"]
+
+[services.rss]
+  limit = 30
+
+[markup.goldmark.renderer]
+  # Allows a raw <video> or <figure> in a post when the shortcode doesn't fit.
+  unsafe = true
+
+[markup.highlight]
+  # Classes, not inline colours, so code blocks follow the light/dark tokens.
+  noClasses = false
+
+[menus]
+  [[menus.main]]
+    name = "News"
+    pageRef = "/announcements"
+    weight = 10
+  [[menus.main]]
+    name = "Logs"
+    pageRef = "/logs"
+    weight = 20
+  [[menus.main]]
+    name = "Demos"
+    pageRef = "/demos"
+    weight = 30
+  [[menus.main]]
+    name = "User guide"
+    url = "https://docs.thingstudio.net/"
+    weight = 40
+  [[menus.main]]
+    name = "Hardware"
+    url = "https://docs.thingstudio.net/supported-hardware/"
+    weight = 50
+  [[menus.main]]
+    name = "Discussions"
+    url = "https://github.com/mkarliner/ThingStudio/discussions"
+    weight = 60
+  [[menus.main]]
+    name = "GitHub"
+    url = "https://github.com/mkarliner/ThingStudio"
+    weight = 70
