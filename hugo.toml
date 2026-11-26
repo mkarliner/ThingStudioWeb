@@ -44,6 +44,10 @@ capitalizeListTitles = false
 
 [menus]
   [[menus.main]]
+    name = "Get started"
+    url = "https://docs.thingstudio.net/getting-started/"
+    weight = 5
+  [[menus.main]]
     name = "News"
     pageRef = "/announcements"
     weight = 10
